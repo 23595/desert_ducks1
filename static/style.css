@@ -1,17 +1,39 @@
-div.scrollmenu {
-  background-color: #333;
-  overflow: auto;
-  white-space: nowrap;
-}
-
-div.scrollmenu h1 {
-  display: inline-block;
-  color: white;
+.button{
+  width: 60px;
+  height: 40px;
   text-align: center;
-  padding: 14px;
+  background-color: #928C6F;
+  color: white;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 3px;
+}
+.button:hover{
+  background-color: #C3C48D;
+}
+.hide_link{
+  color: white;
   text-decoration: none;
 }
 
-div.scrollmenu h1:hover {
+.centre{
+  margin: auto;
+}
+.container {
+  width: 60%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: #CBEDAB;
+  padding: 10px;
+}
+.container div {
+  background-color: #f1f1f1;
+  border: 1px solid black;
+  padding: 10px;
+  font-size: 30px;
+  text-align: center;
+}
+div.two_column_grid div:hover {
   background-color: #777;
 }

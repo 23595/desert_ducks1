@@ -7,10 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="{{  url_for('home')  }}">Back</a>
-    <div class="scrollmenu">
+    <a href="{{  url_for('home')  }}" class="hide_link"><div class="button">Back</div></a>
+    <div class="container">
         {%  for setting in result  %}
-        <h1>{{ setting[1] }}: {{ setting[0] }}<br></h1>
+        <div>{{ setting[1] }}: {{ setting[0] }}<br></div>
         {% endfor %}
     </div>
 </body>
