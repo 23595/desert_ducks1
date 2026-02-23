@@ -1,0 +1,5 @@
+-- database: ./ducks.db
+
+SELECT * FROM settings;
+
+SELECT COUNT(setting_id) FROM settings

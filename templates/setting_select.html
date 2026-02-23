@@ -7,10 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="{{  url_for('home')  }}" class="hide_link"><div class="button">Back</div></a>
+    <a href="{{  url_for('home')  }}" class="hide_link"><div class="button centre">Back</div></a>
     <div class="container">
+        <a href="setting/{{random_setting}}"><div>Random</div></a>
         {%  for setting in result  %}
-        <div>{{ setting[1] }}: {{ setting[0] }}<br></div>
+        <a href="setting/{{setting[1]}}"><div>{{ setting[0] }}</div></a>
         {% endfor %}
     </div>
 </body>

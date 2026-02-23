@@ -1,3 +1,7 @@
+.big_logo{
+  width: 100%
+}
+
 .button{
   width: 60px;
   height: 40px;
@@ -17,8 +21,11 @@
 }
 
 .centre{
+  display: block;
   margin: auto;
+  text-align: center;
 }
+
 .container {
   width: 60%;
   margin: auto;
@@ -36,4 +43,8 @@
 }
 div.two_column_grid div:hover {
   background-color: #777;
+}
+
+.notebook_background{
+  background-image: url('images/lined_background.png');
 }
