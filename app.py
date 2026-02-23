@@ -44,18 +44,28 @@ def setting_select():
 
 @app.route('/setting/<int:id>')
 def setting(id):
-    #Home page
     sql = """SELECT setting_name, setting_desc FROM settings
     WHERE setting_id = ?;"""
     result = query_db(sql, (id,), True)
-    return render_template("setting_desc.html",result=result)
+    #Get the first question ready
+    sql = """SELECT questions.question_id FROM questions
+JOIN questions_bridge ON questions.question_id=questions_bridge.question_id
+WHERE questions_bridge.setting_id = ?;"""
+    questions = query_db(sql, (id,))
+    question_list = []
+    for i in questions:
+        question_list.append(i[0])
+    return render_template("setting_desc.html",result=result,question_list=question_list,id=id,first=question_list[0])
+    
 
-@app.route('/questions')
-def questions():
-    #Home page
-    #sql = """;"""
-    #result = query_db(sql)
-    return render_template("layout.html")
+
+@app.route('/questions/<int:id>/<int:question>')
+def questions(id,question):
+    sql = """SELECT setting_name, setting_desc 
+    FROM settings
+    WHERE setting_id = ?;;"""
+    result = query_db(sql, (id,question))
+    return render_template("questions.html", result=result)
 
 
 

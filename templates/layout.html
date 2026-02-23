@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <title>Document</title>
 </head>
-<body>
+<body class="notebook_background" style="height: 100%;">
     <!--Shared header-->
-    {% block body %}
-    <div class="notebook_background">hello</div>
-    {% endblock %}
+    <div class="left-column">hello</div>
+    <div class="right-column">
+        {% block body %}
+    
+        {% endblock %}
+    </div>
 </body>
 </html>

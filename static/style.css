@@ -1,3 +1,8 @@
+html, body{
+  height: 100%;
+  margin: 0;
+}
+
 .big_logo{
   width: 100%
 }
@@ -47,4 +52,17 @@ div.two_column_grid div:hover {
 
 .notebook_background{
   background-image: url('images/lined_background.png');
+}
+
+.left-column{
+  background-color: white;
+  width: 49%;
+  height: 100%;
+  display: inline-block;
+  border-right: 5px solid black;
+}
+.right-column{
+  width:49%;
+  height: 100%;
+  float: right;
 }
