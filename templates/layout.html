@@ -10,10 +10,16 @@
 </head>
 <body class="notebook_background" style="height: 100%;">
     <!--Shared header-->
-    <div class="left-column">hello</div>
+    <div class="left-column">
+        <form>
+            {% for option in result %}
+                <input type="radio" id="{{option[2]}}" name="choose_ans">
+                <label for="{{option[2]}}">{{option[2]}}</label><br>
+            {% endfor %}
+        </form>
+    </div>
     <div class="right-column">
         {% block body %}
-    
         {% endblock %}
     </div>
 </body>

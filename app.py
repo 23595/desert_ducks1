@@ -59,12 +59,16 @@ WHERE questions_bridge.setting_id = ?;"""
     
 
 
-@app.route('/questions/<int:id>/<int:question>')
-def questions(id,question):
-    sql = """SELECT setting_name, setting_desc 
-    FROM settings
-    WHERE setting_id = ?;;"""
-    result = query_db(sql, (id,question))
+@app.route('/questions/<int:id>/<int:questionid>')
+def questions(id,questionid):
+    sql = """SELECT settings.setting_name, questions.question_text, answer_options.answer_text
+FROM questions_bridge
+JOIN settings ON questions_bridge.setting_id=settings.setting_id
+JOIN questions ON questions_bridge.question_id=questions.question_id
+JOIN answer_options ON questions_bridge.question_id=answer_options.question_id
+WHERE questions_bridge.setting_id=?
+AND questions_bridge.question_id=?;"""
+    result = query_db(sql, (id,questionid))
     return render_template("questions.html", result=result)
 
 

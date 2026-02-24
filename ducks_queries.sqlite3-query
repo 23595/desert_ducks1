@@ -18,3 +18,12 @@ LIMIT 1
 SELECT questions.question_id FROM questions
 JOIN questions_bridge ON questions.question_id=questions_bridge.question_id
 WHERE questions_bridge.setting_id = 2
+
+--Get a list of answers given a question and setting
+SELECT settings.setting_name, questions.question_text, answer_options.answer_text
+FROM questions_bridge
+JOIN settings ON questions_bridge.setting_id=settings.setting_id
+JOIN questions ON questions_bridge.question_id=questions.question_id
+JOIN answer_options ON questions_bridge.question_id=answer_options.question_id
+WHERE questions_bridge.setting_id=3
+AND questions_bridge.question_id=1
