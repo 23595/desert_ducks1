@@ -69,7 +69,17 @@ JOIN answer_options ON questions_bridge.question_id=answer_options.question_id
 WHERE questions_bridge.setting_id=?
 AND questions_bridge.question_id=?;"""
     result = query_db(sql, (id,questionid))
-    return render_template("questions.html", result=result)
+    first = result[0]
+    sql = """SELECT questions.question_id 
+    FROM questions
+    JOIN questions_bridge 
+    ON questions.question_id=questions_bridge.question_id
+    WHERE questions_bridge.setting_id = """ + str(id) + ';'
+    question_ids = query_db(sql)
+    question_id_list = []
+    for x in question_ids:
+        question_id_list.append(x[0])
+    return render_template("index.html", result=result, question=first[1], id=id, question_id_list=question_id_list)
 
 
 
