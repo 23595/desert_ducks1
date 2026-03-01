@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block left %}
+<h2>{{question}}</h2>
+    <form>
+        {% for option in result %}
+            <input type="radio" id="{{option[2]}}" name="choose_ans">
+            <label for="{{option[2]}}">{{option[2]}}</label><br>
+        {% endfor %}
+    </form>
+    <a href="/questions/{{id}}/{{nextid}}" class="hide_link" style="display: inline-block;">
+        <div class="button">Continue</div>
+    </a>
+{% endblock %}
