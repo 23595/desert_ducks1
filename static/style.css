@@ -60,13 +60,27 @@ div.two_column_grid div:hover {
 
 .left-column{
   background-color: white;
-  width: 49%;
+  width: 50%;
   height: 100%;
   display: inline-block;
   border-right: 5px solid black;
 }
 .right-column{
-  width:49%;
+  width:50%;
   height: 100%;
   float: right;
+}
+.scorechart{
+  width: 60%;
+  margin: auto;
+  margin-top: 111px;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-template-rows: 36.5px;
+}
+.scorechart div{
+  background-color: #CBEDAB;
+  border: 1px solid black;
+  font-size: 30px;
+  text-align: center;
 }

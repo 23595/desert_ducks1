@@ -76,6 +76,5 @@ WHERE setting_id = 1;""" #Count the number of questions for the setting
     else: #If the questionid is not valid, aka all questions have been asked
         return render_template("scoring.html")
     
-
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,19 +1,31 @@
 {% extends "base.html" %}
 {% block left %}
 <h2>{{question}}</h2> 
-<form><!-- form with an option for each answer. Only one can be selected -->
+<form action="/submit" method="post" id="question_form"><!-- form with an option for each answer. Only one can be selected -->
     {% for option in result %}
         <input type="radio" id="{{option[2]}}" name="choose_ans" onclick="showContinue()"> <!--Once you select an option, the continue button appears-->
         <label for="{{option[2]}}">{{option[2]}}</label><br>
     {% endfor %}
+    <a href="/questions/{{id}}/{{nextid}}" class="hide_link" style="display: inline-block; visibility: hidden;" id="continue">
+        <div class="button" type="submit">Continue</div>
+    </a>
 </form>
-<a href="/questions/{{id}}/{{nextid}}" class="hide_link" style="display: inline-block; visibility: hidden;" id="continue">
-    <div class="button">Continue</div>
-</a>
+
 <script>
     function showContinue(){
         document.getElementById("continue").style.visibility = "visible";
     }
+const selectElement = document.getElementById('themeSelect');
 
+// Get the value at any time:
+console.log(selectElement.value);
 </script>
+{% endblock %}
+
+{% block right %}
+<div class="scorechart">
+    <div>column1</div>
+    <div>column2</div>
+    <div>value1</div>
+</div>
 {% endblock %}
