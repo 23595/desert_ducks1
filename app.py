@@ -49,6 +49,7 @@ def setting(id):
     sql = """SELECT setting_name, setting_desc FROM settings
     WHERE setting_id = ?;"""
     result = query_db(sql, (id,), True)
+    answers_list=[]
     #Get the first question ready
     return render_template("setting_desc.html",result=result,id=id,first=1)
     
