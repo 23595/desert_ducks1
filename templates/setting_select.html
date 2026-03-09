@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <title>Document</title>
+    <title>Desert Ducks - select setting</title>
 </head>
 <body>
     <a href="{{  url_for('home')  }}" class="hide_link"><div class="button centre">Back</div></a>
     <div class="container">
-        <a href="setting/{{random_setting}}"><div>Random</div></a>
+        <a href="setting/{{random_setting}}"><div>Random</div></a><!--random id already chosen beforehand-->
         {%  for setting in result  %}
-        <a href="setting/{{setting[1]}}"><div>{{ setting[0] }}</div></a>
+        <a href="setting/{{setting[1]}}"><div>{{ setting[0] }}</div></a><!--The name of the setting-->
         {% endfor %}
     </div>
 </body>

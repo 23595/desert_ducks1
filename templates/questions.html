@@ -3,10 +3,10 @@
 <h2>{{question}}</h2> 
 <form action="/submit" method="post" id="question_form"><!-- form with an option for each answer. Only one can be selected -->
     {% for option in result %}
-        <input type="radio" id="{{option[2]}}" name="choose_ans" onclick="showSubmit()"> <!--Once you select an option, the continue button appears-->
+        <input type="radio" id="{{option[2]}}" name="choose_ans" onclick="showSubmit()"> <!--Once you select an option, the submit button appears-->
         <label for="{{option[2]}}">{{option[2]}}</label><br>
     {% endfor %}
-    <div class="button" style="display: inline-block; visibility: hidden;" id="submit" onclick="showContinue">
+    <div class="button" style="display: inline-block; visibility: hidden;" id="submit" onclick="showContinue()">
         Confirm answer
     </div>
     <a href="/questions/{{id}}/{{nextid}}" class="hide_link button" style="display: inline-block; visibility: hidden;" id="continue">
@@ -20,7 +20,10 @@
     }
     function showContinue(){
         document.getElementById("continue").style.visibility = "visible";
-        document.getElementById("submit").style.visibility = "hidden";
+        document.getElementById("submit").style.display = "none";
+    }
+    function getChosenOption(chosenOption){
+        document.getElementById(chosenOption)
     }
 </script>
 {% endblock %}

@@ -7,14 +7,14 @@
     <title>Setting: {{result[0]}}</title>
 </head>
 <body>
-    <div class="centre">You have chosen: {{result[0]}}</div>
-    <div class="centre">{{result[1]}}</div>
+    <div class="centre">You have chosen: {{result[0]}}</div><!--setting name-->
+    <div class="centre">{{result[1]}}</div><!--description of setting-->
     <div class="centre">
         <a href="{{  url_for('setting_select')  }}" class="hide_link" style="display: inline-block;">
-            <div class="button">Back</div>
+            <div class="button">Back</div> <!--return to setting select-->
         </a>
         <a href="/questions/{{id}}/{{first}}" class="hide_link" style="display: inline-block;">
-            <div class="button">Continue</div>
+            <div class="button">Continue</div> <!--continue to questions-->
         </a>
     </div>
 </body>

@@ -6,17 +6,17 @@
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <title>Document</title>
+    <title>Desert Ducks</title>
 </head>
 <body class="notebook_background" style="height: 100%;">
-    
-    <!--Shared header-->
+    <!--Left side of the page-->
     <div class="left-column">
         <div class="small_logo">
             <img src="/static/images/desert_ducks.png" alt="desert_ducks" style="width: inherit;">
         </div>
         {% block left %}{% endblock %}
     </div>
+    <!--Right side of the page-->
     <div class="right-column">
         {% block right %}{% endblock %}
     </div>
