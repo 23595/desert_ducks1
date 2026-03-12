@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Newsreader">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>Admin Login</title>
 </head>
 <body>
     <h1>Administrator Login</h1>
-    <form action="/submit">
+    <form action="{{ url_for('login') }}" method="POST">
         <label for="username">Username: </label>
         <input type="text" id="username" name="username" required><br>
         <label for="password">Password: </label>
         <input type="password" id="password" name="password" required><br>
-        <input type="submit" value="Continue">
-        <a href="{{ url_for('admin_view') }}">skip</a>
+        <input type="submit" value="Login">
     </form>
+    <p class="error_message">{{message}}</p>
 </body>
 </html>

@@ -95,3 +95,8 @@ div.two_column_grid div:hover {
   font-size: 30px;
   text-align: center;
 }
+
+.error_message{
+  color: red;
+  text-decoration: wavy;
+}

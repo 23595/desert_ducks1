@@ -30,3 +30,7 @@ AND questions_bridge.question_id=1
 
 INSERT INTO admin_login (username, encrypted_pw, authority_lvl)
 VALUES ('username', 'hashed_pw', 1);
+
+SELECT admin_login.username, admin_login.encrypted_pw
+FROM admin_login
+WHERE username = '23595'

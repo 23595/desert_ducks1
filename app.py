@@ -5,8 +5,6 @@ import random
 from werkzeug.security import check_password_hash,generate_password_hash
 
 
-#check_password_hash(hashed_pw, password)
-
 
 DATABASE = 'ducks.db'
 answers_list = []
@@ -39,7 +37,7 @@ def home():
     return render_template("homepage.html")
 
 @app.route('/admin_login')
-def login():
+def admin_login():
     return render_template("login.html")
 
 @app.route('/admin_view')
@@ -103,7 +101,25 @@ def new_user():
             cursor.execute(sql)
     return render_template("admin.html")
     
-
+@app.route('/login', methods=['GET','POST'])
+def login():
+    if request.method == 'POST':
+        password = request.form['password']
+        username = request.form['username']
+        sql = """SELECT admin_login.username, admin_login.encrypted_pw
+                FROM admin_login
+                WHERE username = '""" + username + "';"
+        results = query_db(sql)
+        if results:
+            result=results[0]
+            if check_password_hash(result[1], password):
+                return render_template("admin.html")
+            else:
+                return render_template("login.html", message='Incorrect Password')
+        else:
+            return render_template("login.html", message='Username not found')
+    else:
+        return render_template("login.html")
     
 if __name__ == "__main__":
     app.run(debug=True)
