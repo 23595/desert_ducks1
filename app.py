@@ -66,8 +66,10 @@ def setting(id):
     result = query_db(sql, (id,), True)
     return render_template("setting_desc.html",result=result,id=id,first=1)
 
-@app.route('/questions/<int:id>/<int:questionid>')
+@app.route('/questions/<int:id>/<int:questionid>', methods=['GET','POST'])
 def questions(id,questionid):
+    if request.method == 'POST':
+        answer = 
     sql = """SELECT COUNT(question_id) 
 FROM questions_bridge
 WHERE setting_id = 1;""" #Count the number of questions for the selected setting

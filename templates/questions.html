@@ -3,12 +3,12 @@
 <h2>{{question}}</h2> 
 <form action="{{ url_for('questions(id, nextid)') }}" method="post" id="question_form"><!-- form with an option for each answer. Only one can be selected -->
     {% for option in result %}
-        <input type="radio" id="{{option[2]}}" name="choose_ans" onclick="showSubmit()"> <!--Once you select an option, the submit button appears-->
+        <input type="radio" id="{{option[2]}}" name="choose_ans" onclick="showSubmit(), getChosenOption()"> <!--Once you select an option, the submit button appears-->
         <label for="{{option[2]}}">{{option[2]}}</label><br>
     {% endfor %}
-    <a href="/questions/{{id}}/{{nextid}}" class="hide_link button" style="display: inline-block; visibility: hidden;" id="continue">
-        Continue
-    </a>
+    <input type="hidden" style="display: none;" id="hidden"></p>
+    <input type="submit" value="Continue" id="continue" style="visibility: hidden;">
+    
 </form>
 
 <script>
@@ -16,7 +16,8 @@
         document.getElementById("continue").style.visibility = "visible";
     }
     function getChosenOption(){
-        const selectedRadio = document.querySelector('input[name="fav_language"]:checked');
+        const selectedRadio = document.querySelector('input[name="choose_ans"]:checked');
+        document.getElementById("hidden").innerHTML = selectedRadio
     }
 </script>
 {% endblock %}
