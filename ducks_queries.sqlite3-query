@@ -27,3 +27,6 @@ JOIN questions ON questions_bridge.question_id=questions.question_id
 JOIN answer_options ON questions_bridge.question_id=answer_options.question_id
 WHERE questions_bridge.setting_id=3
 AND questions_bridge.question_id=1
+
+INSERT INTO admin_login (username, encrypted_pw, authority_lvl)
+VALUES ('username', 'hashed_pw', 1);

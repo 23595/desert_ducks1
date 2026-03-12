@@ -3,23 +3,34 @@ html, body{
   margin: 0;
 }
 
+.w3_newsreader{
+    font-family: Newsreader;
+}
+
 .big_logo{
-  width: 100%
+  width: 100%;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 .small_logo{
-  width: 50%;
-  margin: 5%;
+  width: 40%;
+  margin: 2.5%;
+  display: inline-block;
 }
 
 .button{
   width: fit-content;
   height: 40px;
   text-align: center;
-  background-color: #928C6F;
-  color: white;
+  background-color: #edeba0;
+  color: black;
   border: 2px solid black;
   border-radius: 5px;
   padding: 5px;
+  font-size: large;
 }
 .button:hover{
   background-color: #C3C48D;

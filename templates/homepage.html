@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Newsreader">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>Desert Ducks</title>
 </head>
 <body>
-        <div class="big_logo centre"><img src="/static/images/desert_ducks.png" alt="Desert Ducks"></div>
-        <div class="centre">different animals fit different environments.</div>
-        <a href="{{  url_for('setting_select')  }}"><div class="button centre">begin</div></a>
-    <!--<a href="">Admin Login</a>-->
+    <div class="big_logo"><img src="/static/images/desert_ducks.png" alt="Desert Ducks"></div>
+    <h3 class="centre w3_newsreader">different animals fit different environments.</h3>
+    <div class="button centre"><a href="{{  url_for('setting_select')  }}" style="text-decoration: none;">Begin</a></div>
+    <div class="centre"><a href="{{ url_for('login') }}">Admin Login</a></div>
 </body>
 </html>

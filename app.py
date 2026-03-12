@@ -1,9 +1,15 @@
-from flask import Flask, g, render_template
+from flask import Flask, g, render_template, request
 from flask import jsonify
 import sqlite3
 import random
+from werkzeug.security import check_password_hash,generate_password_hash
+
+
+#check_password_hash(hashed_pw, password)
+
 
 DATABASE = 'ducks.db'
+answers_list = []
 
 #initialise app
 app = Flask(__name__)
@@ -32,6 +38,14 @@ def home():
     #Home page
     return render_template("homepage.html")
 
+@app.route('/admin_login')
+def login():
+    return render_template("login.html")
+
+@app.route('/admin_view')
+def admin_view():
+    return render_template("admin.html")
+                        
 @app.route('/setting_select')
 def setting_select():
     #Presents list of settings to choose from
@@ -47,13 +61,12 @@ def setting_select():
 
 @app.route('/setting/<int:id>')
 def setting(id):
+    answers_list.clear()
     #Gives information on the selected setting
     sql = """SELECT setting_name, setting_desc FROM settings
     WHERE setting_id = ?;"""
     result = query_db(sql, (id,), True)
     return render_template("setting_desc.html",result=result,id=id,first=1)
-    
-
 
 @app.route('/questions/<int:id>/<int:questionid>')
 def questions(id,questionid):
@@ -73,14 +86,24 @@ WHERE setting_id = 1;""" #Count the number of questions for the selected setting
         AND questions_bridge.question_id=?;""" #Get the setting name, question text, and answer options
         result = query_db(sql, (id,questionid))
         first = result[0] 
-        return render_template("questions.html", result=result, question=first[1], id=id, nextid=questionid+1)
+        return render_template("questions.html", result=result, question=first[1], id=id, nextid=questionid+1, answers_list=answers_list)
     else: #If the questionid is not valid, aka all questions have been asked
-        return render_template("scoring.html")
+        return render_template("scoring.html", answers_list=answers_list)
     
-@app.route('/submit')
-def submit():
-    answer_text = request.args.get('chosenOption')
-    return jsonify({answer_text})
+@app.route('/new_user', methods=['GET','POST'])
+def new_user():
+    if request.method == 'POST':
+        password = request.form['password']
+        username = request.form['username']
+        hashed_pw = generate_password_hash(password)
+        with sqlite3.connect(DATABASE) as db:
+            cursor = db.cursor()
+            sql = """INSERT INTO admin_login (username, encrypted_pw, authority_lvl)
+            VALUES ('""" + username + "', '" + hashed_pw + "', 1);"
+            cursor.execute(sql)
+    return render_template("admin.html")
+    
+
     
 if __name__ == "__main__":
     app.run(debug=True)

@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Newsreader">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>Desert Ducks - select setting</title>
 </head>
 <body>
-    <a href="{{  url_for('home')  }}" class="hide_link"><div class="button centre">Back</div></a>
+    <div class="small_logo">
+        <img src="/static/images/desert_ducks.png" alt="desert_ducks">
+    </div>
+    <div class="button centre" style="margin-top: 15px;"><a href="{{  url_for('home')  }}" style="text-decoration: none;">Back</a></div>
     <div class="container">
         <a href="setting/{{random_setting}}"><div>Random</div></a><!--random id already chosen beforehand-->
         {%  for setting in result  %}
