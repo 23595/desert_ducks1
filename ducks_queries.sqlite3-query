@@ -2,22 +2,22 @@
 
 SELECT * FROM settings;
 
-SELECT COUNT(setting_id) FROM settings
+SELECT COUNT(setting_id) FROM settings;
 
 
 SELECT game_logic.logic_id, settings.setting_name, questions.question_text, answer_options.answer_text, game_logic.ans_points, game_logic.ans_explain
 FROM game_logic
 JOIN settings ON game_logic.setting_id=settings.setting_id
 JOIN questions ON game_logic.question_id=questions.question_id
-JOIN answer_options ON game_logic.option_id=answer_options.option_id
+JOIN answer_options ON game_logic.option_id=answer_options.option_id;
 
 SELECT settings.setting_id FROM settings
-LIMIT 1
+LIMIT 1;
 
 --Select the ids of the questions associated with a setting
 SELECT questions.question_id FROM questions
 JOIN questions_bridge ON questions.question_id=questions_bridge.question_id
-WHERE questions_bridge.setting_id = 2
+WHERE questions_bridge.setting_id = 2;
 
 --Get a list of answers given a question and setting
 SELECT settings.setting_name, questions.question_text, answer_options.answer_text
@@ -26,11 +26,25 @@ JOIN settings ON questions_bridge.setting_id=settings.setting_id
 JOIN questions ON questions_bridge.question_id=questions.question_id
 JOIN answer_options ON questions_bridge.question_id=answer_options.question_id
 WHERE questions_bridge.setting_id=3
-AND questions_bridge.question_id=1
+AND questions_bridge.question_id=1;
 
 INSERT INTO admin_login (username, encrypted_pw, authority_lvl)
 VALUES ('username', 'hashed_pw', 1);
 
 SELECT admin_login.username, admin_login.encrypted_pw
 FROM admin_login
-WHERE username = '23595'
+WHERE username = '23595';
+
+SELECT ans_explain, ans_points 
+FROM game_logic
+JOIN answer_options ON game_logic.option_id=answer_options.option_id
+WHERE game_logic.setting_id = 1
+AND game_logic.question_id = 1
+AND answer_options.answer_text = 'yes';
+
+SELECT game_logic.ans_points
+FROM game_logic
+JOIN answer_options ON game_logic.option_id = answer_options.option_id
+WHERE game_logic.setting_id = 1
+  AND game_logic.question_id = 1
+  AND answer_options.answer_text = 'go away';

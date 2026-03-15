@@ -69,10 +69,18 @@ def setting(id):
 @app.route('/questions/<int:id>/<int:questionid>', methods=['GET','POST'])
 def questions(id,questionid):
     if request.method == 'POST':
-        answer = 
+        answer = request.form.get('choose_ans')
+        sql = """SELECT game_logic.ans_explain, game_logic.ans_points 
+                FROM game_logic
+                JOIN answer_options ON game_logic.option_id=answer_options.option_id
+                WHERE game_logic.setting_id = """ + str(id) 
+        sql += " AND game_logic.question_id = " + str(questionid)
+        sql += " AND answer_options.answer_text = '" + answer + "';"
+        answer = query_db(sql)
+        answers_list.append(answer)
     sql = """SELECT COUNT(question_id) 
-FROM questions_bridge
-WHERE setting_id = 1;""" #Count the number of questions for the selected setting
+            FROM questions_bridge
+            WHERE setting_id = """ + str(id) + ";" #Count the number of questions for the selected setting
     question_count = query_db(sql)
     question_count = question_count[0]
     question_count = int(question_count[0]) #Convert to int

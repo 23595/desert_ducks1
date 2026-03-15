@@ -1,24 +1,33 @@
 {% extends "base.html" %}
 {% block left %}
 <h2>{{question}}</h2> 
-<form action="{{ url_for('questions(id, nextid)') }}" method="post" id="question_form"><!-- form with an option for each answer. Only one can be selected -->
+<form action="/questions/{{id}}/{{nextid}}" method="post" id="question_form"><!-- form with an option for each answer. Only one can be selected -->
     {% for option in result %}
-        <input type="radio" id="{{option[2]}}" name="choose_ans" onclick="showSubmit(), getChosenOption()"> <!--Once you select an option, the submit button appears-->
-        <label for="{{option[2]}}">{{option[2]}}</label><br>
+        <label>
+            <input type="radio" id="{{option[2]}}" name="choose_ans" onclick="showSubmit()" value="{{option[2]}}"> <!--Once you select an option, the submit button appears-->
+            {{option[2]}}
+            <br>
+        </label>
     {% endfor %}
-    <input type="hidden" style="display: none;" id="hidden"></p>
     <input type="submit" value="Continue" id="continue" style="visibility: hidden;">
-    
 </form>
 
 <script>
     function showSubmit(){
         document.getElementById("continue").style.visibility = "visible";
     }
-    function getChosenOption(){
-        const selectedRadio = document.querySelector('input[name="choose_ans"]:checked');
-        document.getElementById("hidden").innerHTML = selectedRadio
-    }
+    //function getChosenOption() {
+    //const options = document.getElementsByName("choose_ans");
+    //let selectedValue = "";
+
+    //for (let i = 0; i < options.length; i++) {
+        //if (options[i].checked) { // The 'checked' property is a boolean
+           // selectedValue = options[i].value;
+           // break; // Exit the loop once a checked option is found
+      //  }
+   // }
+        //document.getElementById("extra").innerHTML = selectedValue.value
+    //}
 </script>
 {% endblock %}
 

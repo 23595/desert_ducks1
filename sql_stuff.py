@@ -14,7 +14,7 @@ def query_db(sql):
 if __name__ == "__main__":
     sql = 'SELECT settings.setting_id, settings.setting_name FROM settings'
     settingid_list = query_db(sql)
-    for settingid in settingid_list: #For each setting pair
+    for settingid in settingid_list:  #For each setting pair
         settingname = settingid[1]
         settingid = settingid[0]
         sql = """SELECT questions_bridge.question_id, questions.question_text 
