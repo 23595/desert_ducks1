@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Newsreader">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <a href="setting/{{random_setting}}" target="_top"><div>Random</div></a><!--random id already chosen beforehand-->
+        {%  for setting in result  %}
+        <a href="setting/{{setting[1]}}" target="_top"><div>{{ setting[0].title() }}</div></a><!--The name of the setting-->
+        {% endfor %}
+        <div>placeholder</div>
+        <div>placeholder 2</div>
+        <div>placeholder 3</div>
+    </div>
+</body>
+</html>

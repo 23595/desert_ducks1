@@ -13,11 +13,6 @@
         <img src="/static/images/desert_ducks.png" alt="desert_ducks">
     </div>
     <div class="button centre" style="margin-top: 15px;"><a href="{{  url_for('home')  }}" style="text-decoration: none;">Back</a></div>
-    <div class="container">
-        <a href="setting/{{random_setting}}"><div>Random</div></a><!--random id already chosen beforehand-->
-        {%  for setting in result  %}
-        <a href="setting/{{setting[1]}}"><div>{{ setting[0] }}</div></a><!--The name of the setting-->
-        {% endfor %}
-    </div>
+    <iframe src="{{ url_for('setting_list') }}" frameborder="0"></iframe>
 </body>
 </html>

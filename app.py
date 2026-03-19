@@ -7,7 +7,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 DATABASE = 'ducks.db'
 answers_list = []
 
-#initialise app
+# initialise app
 app = Flask(__name__)
 
 
@@ -32,7 +32,7 @@ def query_db(query, args=(), one=False):
 
 @app.route('/')
 def home():
-    #Home page
+    # Home page
     return render_template("homepage.html")
 
 @app.route('/admin_login')
@@ -45,27 +45,41 @@ def admin_view():
                         
 @app.route('/setting_select')
 def setting_select():
-    #Presents list of settings to choose from
-    #Random option also available
+    # Presents list of settings to choose from
+    # Random option also available
     sql = 'SELECT COUNT(setting_id) FROM settings'
     result = query_db(sql)
-    result = result[0] #Finds the total number of settings
+    result = result[0]  # Finds the total number of settings
     settingcount = int(result[0])
-    random_setting = random.randint(1, settingcount) #randomly chooses one setting_id
+    random_setting = random.randint(1, settingcount) # randomly chooses one setting_id
     sql = 'SELECT setting_name, setting_id FROM settings'
-    result = query_db(sql) #Gets a list of all settings with ids
-    return render_template("setting_select.html",result=result,random_setting=random_setting) #Sends the list of settings and id for the random one
+    result = query_db(sql)  # Gets a list of all settings with ids
+    return render_template("setting_select.html", result=result, random_setting=random_setting) # Sends the list of settings and id for the random one
+
+@app.route('/setting_list')
+def setting_list():
+    # Presents list of settings to choose from
+    # Random option also available
+    sql = 'SELECT COUNT(setting_id) FROM settings'
+    result = query_db(sql)
+    result = result[0]  # Finds the total number of settings
+    settingcount = int(result[0])
+    random_setting = random.randint(1, settingcount) # randomly chooses one setting_id
+    sql = 'SELECT setting_name, setting_id FROM settings'
+    result = query_db(sql)  # Gets a list of all settings with ids
+    return render_template("iframe.html", result=result, random_setting=random_setting) # Sends the list of settings and id for the random one
+
 
 @app.route('/setting/<int:id>')
 def setting(id):
     answers_list.clear()
-    #Gives information on the selected setting
+    # Gives information on the selected setting
     sql = """SELECT setting_name, setting_desc FROM settings
     WHERE setting_id = ?;"""
     result = query_db(sql, (id,), True)
-    return render_template("setting_desc.html",result=result,id=id,first=1)
+    return render_template("setting_desc.html", result=result, id=id, first=1)
 
-@app.route('/questions/<int:id>/<int:questionid>', methods=['GET','POST'])
+@app.route('/questions/<int:id>/<int:questionid>', methods=['GET', 'POST'])
 def questions(id, questionid):
     if request.method == 'POST':
         answer = request.form.get('choose_ans')
@@ -81,11 +95,11 @@ def questions(id, questionid):
         answers_list.append(result[1])
     sql = """SELECT COUNT(question_id) 
             FROM questions_bridge
-            WHERE setting_id = """ + str(id) + ";" #Count the number of questions for the selected setting
+            WHERE setting_id = """ + str(id) + ";"  # Count the number of questions for the selected setting
     question_count = query_db(sql)
     question_count = question_count[0]
-    question_count = int(question_count[0]) #Convert to int
-    if questionid <= question_count: #Continue if the questionid is valid
+    question_count = int(question_count[0])  # Convert to int
+    if questionid <= question_count:  # Continue if the questionid is valid
         sql = """SELECT settings.setting_name, questions.question_text, answer_options.answer_text
         FROM questions_bridge
         JOIN settings ON questions_bridge.setting_id=settings.setting_id
@@ -132,5 +146,6 @@ def login():
     else:
         return render_template("login.html")
     
+
 if __name__ == "__main__":
     app.run(debug=True)
