@@ -22,14 +22,19 @@ if __name__ == "__main__":
                 JOIN questions ON questions_bridge.question_id = questions.question_id 
                 WHERE questions_bridge.setting_id = """ + str(settingid) + ";"
         questionid_list = query_db(sql)
-        for questionid in questionid_list:
+        for questionid in questionid_list: #For each question
             questiontext = questionid[1]
             questionid = questionid[0]
             sql = "SELECT option_id, answer_text FROM answer_options WHERE question_id = " + str(questionid) + ";"
             optionid_list = query_db(sql)
-            for optionid in optionid_list:
+            for optionid in optionid_list: #For each possible answer
                 optiontext = optionid[1]
                 optionid = optionid[0]
-                sql = """INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
-                        VALUES (""" + str(settingid) + ", " + str(questionid) + ", " + str(optionid) + ", 10, '"
-                sql = sql + f"{settingname[:5]}, {questiontext[:5]}, {optiontext[:5]}';"
+                #sql = """INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
+                #        VALUES (""" + str(settingid) + ", " + str(questionid) + ", " + str(optionid) + ", 10, '"
+                #sql = sql + f"{settingname[:5]} {questiontext[:5]} {optiontext[:5]}';"
+                sql = f"""INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
+                        VALUES ({settingid}, {questionid}, {optionid}, 10, '{settingname[:5]} {questiontext[:5]} {optiontext[:5]}');"""
+                with sqlite3.connect(DATABASE) as db:
+                    cursor = db.cursor()
+                    cursor.execute(sql)
