@@ -3,3 +3,13 @@
 <h2>scoring 0.0</h2>
 <!--unfinished-->
 {% endblock %}
+
+{% block right %}
+<div class="scorechart">
+    <div>column1</div>
+    <div>column2</div>
+    {% for value in answers_list %}
+    <div>{{value}}</div>
+    {% endfor %}
+</div>
+{% endblock %}

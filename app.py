@@ -2,9 +2,7 @@ from flask import Flask, g, render_template, request
 from flask import jsonify
 import sqlite3
 import random
-from werkzeug.security import check_password_hash,generate_password_hash
-
-
+from werkzeug.security import check_password_hash, generate_password_hash
 
 DATABASE = 'ducks.db'
 answers_list = []
@@ -24,6 +22,7 @@ def close_connection(exception):
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
+
 
 def query_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
@@ -67,17 +66,19 @@ def setting(id):
     return render_template("setting_desc.html",result=result,id=id,first=1)
 
 @app.route('/questions/<int:id>/<int:questionid>', methods=['GET','POST'])
-def questions(id,questionid):
+def questions(id, questionid):
     if request.method == 'POST':
         answer = request.form.get('choose_ans')
-        sql = """SELECT game_logic.ans_explain, game_logic.ans_points 
+        sql = f"""SELECT game_logic.ans_explain, game_logic.ans_points 
                 FROM game_logic
                 JOIN answer_options ON game_logic.option_id=answer_options.option_id
-                WHERE game_logic.setting_id = """ + str(id) 
-        sql += " AND game_logic.question_id = " + str(questionid)
-        sql += " AND answer_options.answer_text = '" + answer + "';"
-        answer = query_db(sql)
-        answers_list.append(answer)
+                WHERE game_logic.setting_id = {id}
+                AND game_logic.question_id = {questionid - 1}
+                AND answer_options.answer_text = '{answer}';"""
+        result = query_db(sql)
+        result = result[0]
+        answers_list.append(result[0])
+        answers_list.append(result[1])
     sql = """SELECT COUNT(question_id) 
             FROM questions_bridge
             WHERE setting_id = """ + str(id) + ";" #Count the number of questions for the selected setting
@@ -92,7 +93,7 @@ def questions(id,questionid):
         JOIN answer_options ON questions_bridge.question_id=answer_options.question_id
         WHERE questions_bridge.setting_id=?
         AND questions_bridge.question_id=?;""" #Get the setting name, question text, and answer options
-        result = query_db(sql, (id,questionid))
+        result = query_db(sql, (id, questionid))
         first = result[0] 
         return render_template("questions.html", result=result, question=first[1], id=id, nextid=questionid+1, answers_list=answers_list)
     else: #If the questionid is not valid, aka all questions have been asked
