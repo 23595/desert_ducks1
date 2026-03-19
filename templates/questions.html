@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block left %}
 <h2>{{question}}</h2> 
-<form action="/questions/{{id}}/{{nextid}}" method="post" id="question_form"><!-- form with an option for each answer. Only one can be selected -->
+<form action="/questions/{{id}}/{{nextid}}" method="post" id="question_form" class="align_text"><!-- form with an option for each answer. Only one can be selected -->
     {% for option in result %}
         <label>
             <input type="radio" id="{{option[2]}}" name="choose_ans" onclick="showSubmit()" value="{{option[2]}}"> <!--Once you select an option, the submit button appears-->
