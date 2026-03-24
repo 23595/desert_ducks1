@@ -82,13 +82,14 @@ def setting(id):
 @app.route('/questions/<int:id>/<int:questionid>', methods=['GET', 'POST'])
 def questions(id, questionid):
     if request.method == 'POST':
+        prev_id = questionid - 1
         answer = request.form.get('choose_ans')
         sql = f"""SELECT game_logic.ans_explain, game_logic.ans_points 
                 FROM game_logic
                 JOIN answer_options ON game_logic.option_id=answer_options.option_id
                 WHERE game_logic.setting_id = {id}
-                AND game_logic.question_id = {questionid - 1}
-                AND answer_options.answer_text = '{answer}';"""
+                AND game_logic.question_id = {prev_id}
+                AND answer_options.answer_text = "{answer}";"""
         result = query_db(sql)
         result = result[0]
         answers_list.append(result[0])
@@ -106,14 +107,14 @@ def questions(id, questionid):
         JOIN questions ON questions_bridge.question_id=questions.question_id
         JOIN answer_options ON questions_bridge.question_id=answer_options.question_id
         WHERE questions_bridge.setting_id=?
-        AND questions_bridge.question_id=?;""" #Get the setting name, question text, and answer options
+        AND questions_bridge.question_id=?;"""  # Get the setting name, question text, and answer options
         result = query_db(sql, (id, questionid))
         first = result[0] 
         return render_template("questions.html", result=result, question=first[1], id=id, nextid=questionid+1, answers_list=answers_list)
-    else: #If the questionid is not valid, aka all questions have been asked
+    else:  # If the questionid is not valid, aka all questions have been asked
         return render_template("scoring.html", answers_list=answers_list)
     
-@app.route('/new_user', methods=['GET','POST'])
+@app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
     if request.method == 'POST':
         password = request.form['password']
@@ -126,7 +127,7 @@ def new_user():
             cursor.execute(sql)
     return render_template("admin.html")
     
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         password = request.form['password']
@@ -136,7 +137,7 @@ def login():
                 WHERE username = '""" + username + "';"
         results = query_db(sql)
         if results:
-            result=results[0]
+            result = results[0]
             if check_password_hash(result[1], password):
                 return render_template("admin.html")
             else:

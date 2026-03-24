@@ -7,12 +7,19 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Newsreader">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>Desert Ducks - select setting</title>
+    <style>
+        img{
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
-    <div class="small_logo">
-        <img src="/static/images/desert_ducks.png" alt="desert_ducks">
-    </div>
-    <div class="button centre" style="margin-top: 15px;"><a href="{{  url_for('home')  }}" style="text-decoration: none;">Back</a></div>
+    <img src="/static/images/desert_ducks.png" alt="desert_ducks" class="small_logo">
+    <div style="text-align: center; margin-top: 150px; width: 100%;"><h1><strong>Select a Setting:</strong></h1></div>
     <iframe src="{{ url_for('setting_list') }}" frameborder="0"></iframe>
+    <div class="button centre" style="margin-top: 15px;"><a href="{{  url_for('home')  }}" style="text-decoration: none;">Back</a></div>
 </body>
 </html>
