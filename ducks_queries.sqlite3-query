@@ -48,3 +48,8 @@ JOIN answer_options ON game_logic.option_id = answer_options.option_id
 WHERE game_logic.setting_id = 1
   AND game_logic.question_id = 1
   AND answer_options.answer_text = 'go away';
+
+
+SELECT question_id 
+FROM questions_bridge
+WHERE setting_id = 1;

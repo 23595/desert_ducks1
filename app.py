@@ -6,6 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 DATABASE = 'ducks.db'
 answers_list = []
+questions_list = []
 
 # initialise app
 app = Flask(__name__)
@@ -16,6 +17,16 @@ def get_db():
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
+
+
+def count_questions(setting_id) -> int:
+    sql = """SELECT COUNT(question_id) 
+            FROM questions_bridge
+            WHERE setting_id = """ + str(setting_id) + ";"  # Count the number of questions for the selected setting
+    result = query_db(sql)
+    result = result[0]
+    result = int(result[0])
+    return result
 
 @app.teardown_appcontext
 def close_connection(exception):
@@ -72,17 +83,26 @@ def setting_list():
 
 @app.route('/setting/<int:id>')
 def setting(id):
+    # Reset answers and questions
+    questions_list.clear()
     answers_list.clear()
+    sql = f"""SELECT question_id
+            FROM questions_bridge
+            WHERE setting_id = {id};"""
+    results = query_db(sql)
+    for result in results:
+        questions_list.append(int(result[0]))  # list of ints of question_ids
     # Gives information on the selected setting
     sql = """SELECT setting_name, setting_desc FROM settings
     WHERE setting_id = ?;"""
     result = query_db(sql, (id,), True)
-    return render_template("setting_desc.html", result=result, id=id, first=1)
+    return render_template("setting_desc.html", result=result, id=id, first=0)
 
-@app.route('/questions/<int:id>/<int:questionid>', methods=['GET', 'POST'])
-def questions(id, questionid):
+@app.route('/questions/<int:id>/<int:on_question>', methods=['GET', 'POST'])
+def questions(id, on_question):  # id is the id of the setting. on_question is the location in the list of question ids of the current question id
+    #  return f"on_question: {on_question}, questions_list: {questions_list}"
     if request.method == 'POST':
-        prev_id = questionid - 1
+        prev_id = questions_list[on_question - 1]
         answer = request.form.get('choose_ans')
         sql = f"""SELECT game_logic.ans_explain, game_logic.ans_points 
                 FROM game_logic
@@ -94,23 +114,20 @@ def questions(id, questionid):
         result = result[0]
         answers_list.append(result[0])
         answers_list.append(result[1])
-    sql = """SELECT COUNT(question_id) 
-            FROM questions_bridge
-            WHERE setting_id = """ + str(id) + ";"  # Count the number of questions for the selected setting
-    question_count = query_db(sql)
-    question_count = question_count[0]
-    question_count = int(question_count[0])  # Convert to int
-    if questionid <= question_count:  # Continue if the questionid is valid
-        sql = """SELECT settings.setting_name, questions.question_text, answer_options.answer_text
+    # return f"on_question: {on_question}, questions_list: {questions_list}"
+    question_count = count_questions(id) # returns int
+    if int(on_question) < question_count:  # Continue if the questionid is valid
+        current_id = questions_list[on_question]
+        sql = f"""SELECT settings.setting_name, questions.question_text, answer_options.answer_text
         FROM questions_bridge
         JOIN settings ON questions_bridge.setting_id=settings.setting_id
         JOIN questions ON questions_bridge.question_id=questions.question_id
         JOIN answer_options ON questions_bridge.question_id=answer_options.question_id
-        WHERE questions_bridge.setting_id=?
-        AND questions_bridge.question_id=?;"""  # Get the setting name, question text, and answer options
-        result = query_db(sql, (id, questionid))
+        WHERE questions_bridge.setting_id={id}
+        AND questions_bridge.question_id={current_id};"""  # Get the setting name, question text, and answer options
+        result = query_db(sql)
         first = result[0] 
-        return render_template("questions.html", result=result, question=first[1], id=id, nextid=questionid+1, answers_list=answers_list)
+        return render_template("questions.html", result=result, question=first[1], id=id, nextid=on_question+1, answers_list=answers_list)
     else:  # If the questionid is not valid, aka all questions have been asked
         return render_template("scoring.html", answers_list=answers_list)
     
