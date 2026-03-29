@@ -41,6 +41,7 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
+
 @app.route('/')
 def home():
     # Home page
@@ -100,7 +101,7 @@ def setting(id):
 
 @app.route('/questions/<int:id>/<int:on_question>', methods=['GET', 'POST'])
 def questions(id, on_question):  # id is the id of the setting. on_question is the location in the list of question ids of the current question id
-    #  return f"on_question: {on_question}, questions_list: {questions_list}"
+    # return f"on_question: {on_question}, questions_list: {questions_list}"
     if request.method == 'POST':
         prev_id = questions_list[on_question - 1]
         answer = request.form.get('choose_ans')
@@ -156,11 +157,15 @@ def login():
         if results:
             result = results[0]
             if check_password_hash(result[1], password):
-                return render_template("admin.html")
+                sql = """SELECT settings.setting_name, questions.question_text
+FROM questions_bridge
+JOIN settings ON questions_bridge.setting_id=settings.setting_id
+JOIN questions ON questions_bridge.question_id=questions.question_id;"""
+                return render_template("admin.html")  # go to admin page
             else:
-                return render_template("login.html", message='Incorrect Password')
+                return render_template("login.html", message='Incorrect Password')  # Gives error message
         else:
-            return render_template("login.html", message='Username not found')
+            return render_template("login.html", message='Username not found')  # Gives error message
     else:
         return render_template("login.html")
     

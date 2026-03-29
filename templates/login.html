@@ -7,16 +7,49 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Newsreader">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>Admin Login</title>
+    <style>
+        body{
+            margin: 0;
+            height: max-content;
+        }
+        div{
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-bottom: 5px;
+            width:fit-content;
+            margin: auto;
+            background-color: #d5d5ae;
+            outline: 5px solid #aac48d;
+            margin-top: 10%;
+        }
+        p{
+            text-align: center;
+            margin-top: 5px;
+        }
+        input{
+            margin-bottom: 12px;
+        }
+        .login{
+            width: fit-content;
+            margin-left: 40%;
+            background-color: #aac48d;
+        }
+        .login :hover{
+            background-color: rgb(51, 88, 51);
+        }
+    </style>
 </head>
 <body>
-    <h1>Administrator Login</h1>
-    <form action="{{ url_for('login') }}" method="POST">
-        <label for="username">Username: </label>
-        <input type="text" id="username" name="username" required><br>
-        <label for="password">Password: </label>
-        <input type="password" id="password" name="password" required><br>
-        <input type="submit" value="Login">
-    </form>
-    <p class="error_message">{{message}}</p>
+    <div>
+        <h1>Administrator Login</h1>
+        <form action="{{ url_for('login') }}" method="POST">
+            <label for="username">Username: </label>
+            <input type="text" id="username" name="username" required><br>
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password" required><br>
+            <input type="submit" value="Login" class="login">
+        </form>
+        <p class="error_message">{{message}}</p>
+    </div>
 </body>
 </html>

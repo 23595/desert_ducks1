@@ -7,27 +7,77 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Newsreader">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>Admin Controls</title>
+    <style>
+        body{
+            margin: 0;
+            height: max-content;
+        }
+        .grid{
+            display: grid;
+            width: 60%;
+            margin: auto;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 2%;
+        }
+        .admin_function{
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-bottom: 5px;
+            width:max-content;
+            margin: auto;
+            background-color: #d5d5ae;
+            outline: 5px solid #aac48d;
+            margin-top: 10%;
+        }
+        p{
+            text-align: center;
+            margin-top: 5px;
+        }
+        input{
+            margin-bottom: 12px;
+        }
+        .submit{
+            width: fit-content;
+            margin-left: 30%;
+            background-color: #aac48d;
+        }
+        .submit:hover{
+            background-color: rgb(51, 88, 51);
+        }
+    </style>
 </head>
 <body>
-     <div class="admin_function">
-        <h1>Add new admin</h1>
-        <form action="{{ url_for('new_user') }}" method="POST">
-            <label for="username">Username: </label>
-            <input type="text" id="username" name="username" required><br>
-            <label for="password">Password: </label>
-            <input type="password" id="password" name="password" required><br>
-            <input type="submit" value="Create User" style="margin-top: 10px;">
-        </form>
-    </div>
-    <div class="admin_function">
-        <h1>Add new admin</h1>
-        <form action="{{ url_for('new_user') }}" method="POST">
-            <label for="username">Username: </label>
-            <input type="text" id="username" name="username" required><br>
-            <label for="password">Password: </label>
-            <input type="password" id="password" name="password" required><br>
-            <input type="submit" value="Create User">
-        </form>
+    <div class="grid">
+        <div class="admin_function">
+            <h1>Add new admin</h1>
+            <form action="{{ url_for('new_user') }}" method="POST">
+                <label for="username">Username: </label>
+                <input type="text" id="username" name="username" required><br>
+                <label for="password">Password: </label>
+                <input type="password" id="password" name="password" required><br>
+                <input type="submit" value="Create User" class="submit">
+            </form>
+        </div>
+        <div class="admin_function">
+            <h1>Add new admin</h1>
+            <form action="{{ url_for('new_user') }}" method="POST">
+                <label for="username">Username: </label>
+                <input type="text" id="username" name="username" required><br>
+                <label for="password">Password: </label>
+                <input type="password" id="password" name="password" required><br>
+                <input type="submit" value="Create User" class="submit">
+            </form>
+        </div>
+        <div class="admin_function">
+            <h1>View questions and answers</h1>
+            <form action="{{ url_for('new_user') }}" method="POST">
+                <label for="username">Username: </label>
+                <input type="text" id="username" name="username" required><br>
+                <label for="password">Password: </label>
+                <input type="password" id="password" name="password" required><br>
+                <input type="submit" value="Create User" class="submit">
+            </form>
+        </div>
     </div>
 </body>
 </html>

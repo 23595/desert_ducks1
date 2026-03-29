@@ -113,10 +113,3 @@ iframe{
   border: 3px solid black;
   margin-top: 30px;
 }
-
-
-.admin_function{
-  display: inline-block;
-  width: min-content;
-  padding: 10px;
-}
