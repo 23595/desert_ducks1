@@ -8,27 +8,41 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <title>Desert Ducks</title>
     <style>
-        .centred_questions{
-            display: block;
-            width: 50%;
-            margin: auto;
-            text-align: center;
-        }
         .align_text{
             text-align: left;
-            margin-left: 30%;
+            margin-left: 5%;
+        }
+        .question_box{
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-bottom: 5px;
+            width:fit-content;
+            margin: auto;
+            background-color: #d5d5ae;
+            outline: 5px solid #aac48d;
+            margin-top: 10%;
+            display: block;
+        }
+        h2{
+            text-align: center;
+        }
+        .continue{
+            width: fit-content;
+            margin-left: 40%;
+            background-color: #aac48d;
+        }
+        .continue :hover{
+            background-color: rgb(51, 88, 51);
         }
     </style>
 </head>
-<body class="notebook_background" style="height: 100%;">
+<body style="height: 100%;"> <!--class="notebook_background" -->
     <!--Left side of the page-->
     <div class="left-column">
         <div style="width: 50%; margin: 5%;">
             <img src="/static/images/desert_ducks.png" alt="desert_ducks" style="width: inherit;">
         </div>
-        <div class="centred_questions">
             {% block left %}{% endblock %}
-        </div>
     </div>
     <!--Right side of the page-->
     <div class="right-column">

@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {% block left %}
-<h2>{{question}}</h2> 
-<form action="/questions/{{id}}/{{nextid}}" method="post" id="question_form" class="align_text"><!-- form with an option for each answer. Only one can be selected -->
-    {% for option in result %}
-        <label>
-            <input type="radio" id="{{option[2]}}" name="choose_ans" onclick="showSubmit()" value="{{option[2]}}"> <!--Once you select an option, the submit button appears-->
-            {{option[2]}}
-            <br>
-        </label>
-    {% endfor %}
-    <input type="submit" value="Continue" id="continue" style="visibility: hidden;">
-</form>
-
+<div class="question_box">
+    <h2>{{question}}</h2> 
+    <form action="/questions/{{id}}/{{nextid}}" method="post" id="question_form" class="align_text"><!-- form with an option for each answer. Only one can be selected -->
+        {% for option in result %}
+            <label>
+                <input type="radio" id="{{option[2]}}" name="choose_ans" onclick="showSubmit()" value="{{option[2]}}"> <!--Once you select an option, the submit button appears-->
+                {{option[2]}}
+                <br>
+            </label>
+        {% endfor %}
+        <input type="submit" value="Continue" id="continue" style="visibility: hidden;" class="continue">
+    </form>
+</div>
 <script>
     function showSubmit(){
         document.getElementById("continue").style.visibility = "visible";
@@ -20,9 +21,14 @@
 {% endblock %}
 
 {% block right %}
+<div class="background">
+    {% for i in range(5) %}
+    <div></div>
+    {% endfor %}
+</div>
 <div class="scorechart">
-    <div>column1</div>
-    <div>column2</div>
+    <div style="background-color: #CBEDAB;">Question</div>
+    <div style="background-color: #CBEDAB;">Points</div>
     {% for value in answers_list %}
     <div>{{value}}</div>
     {% endfor %}

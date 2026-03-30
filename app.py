@@ -130,6 +130,7 @@ def questions(id, on_question):  # id is the id of the setting. on_question is t
         first = result[0] 
         return render_template("questions.html", result=result, question=first[1], id=id, nextid=on_question+1, answers_list=answers_list)
     else:  # If the questionid is not valid, aka all questions have been asked
+        
         return render_template("scoring.html", answers_list=answers_list)
     
 @app.route('/new_user', methods=['GET', 'POST'])
