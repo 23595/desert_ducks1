@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 {% block left %}
-<h2>Your total score:</h2>
-<h3></h3>
+<div class="question_box">
+    <h3>Your total score:</h3>
+    <h1 style="text-align: center;"><strong>{{ total }}</strong></h1>
+</div>
 <!--unfinished-->
 {% endblock %}
 
 {% block right %}
 <div class="scorechart">
-    <div>column1</div>
-    <div>column2</div>
+    <div style="background-color: #CBEDAB;">Question</div>
+    <div style="background-color: #CBEDAB;">Points</div>
     {% for value in answers_list %}
     <div>{{value}}</div>
     {% endfor %}

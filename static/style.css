@@ -70,10 +70,6 @@ html, body{
 div.two_column_grid div:hover {
   background-color: #777;
 }
-.notebook_background{
-  background-image: url('images/lined_background.png');
-}
-
 .left-column{
   background-color: white;
   width: 50%;
@@ -89,15 +85,17 @@ div.two_column_grid div:hover {
 .scorechart{
   width: 60%;
   margin: auto;
-  margin-top: 111px;
+  margin-top: 150px;
   display: grid;
   grid-template-columns: 4fr 1fr;
-  grid-template-rows: 36.25px;
+  grid-template-rows: 50px;
 }
 .scorechart div{
-  border: 1px solid black;
+  border: 2px solid black;
+  border-bottom: 2px solid black;
   font-size: 30px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .error_message{
@@ -115,11 +113,15 @@ iframe{
 .background{
   grid-template-columns: 1fr;
   margin: 0px;
-  width: auto;
-  border: 5px solid black;
-  grid-auto-rows: 30px;
+  width: 100%;
   position: absolute;
   left: 0px;
   top: 0px;
   z-index: -1;
+}
+.background div{
+  height: 50px;
+  width: 100%;
+  border-bottom: 2px solid black;
+  box-sizing: border-box;
 }

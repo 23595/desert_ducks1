@@ -36,7 +36,7 @@
         }
     </style>
 </head>
-<body style="height: 100%;"> <!--class="notebook_background" -->
+<body style="height: 100%;">
     <!--Left side of the page-->
     <div class="left-column">
         <div style="width: 50%; margin: 5%;">
@@ -46,6 +46,12 @@
     </div>
     <!--Right side of the page-->
     <div class="right-column">
+        <!-- <div class="background">
+            {% for i in range(5) %}
+            <div>
+            </div>
+            {% endfor %}
+        </div> -->
         {% block right %}{% endblock %}
     </div>
 </body>

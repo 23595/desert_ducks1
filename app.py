@@ -101,7 +101,6 @@ def setting(id):
 
 @app.route('/questions/<int:id>/<int:on_question>', methods=['GET', 'POST'])
 def questions(id, on_question):  # id is the id of the setting. on_question is the location in the list of question ids of the current question id
-    # return f"on_question: {on_question}, questions_list: {questions_list}"
     if request.method == 'POST':
         prev_id = questions_list[on_question - 1]
         answer = request.form.get('choose_ans')
@@ -115,7 +114,6 @@ def questions(id, on_question):  # id is the id of the setting. on_question is t
         result = result[0]
         answers_list.append(result[0])
         answers_list.append(result[1])
-    # return f"on_question: {on_question}, questions_list: {questions_list}"
     question_count = count_questions(id) # returns int
     if int(on_question) < question_count:  # Continue if the questionid is valid
         current_id = questions_list[on_question]
@@ -128,10 +126,21 @@ def questions(id, on_question):  # id is the id of the setting. on_question is t
         AND questions_bridge.question_id={current_id};"""  # Get the setting name, question text, and answer options
         result = query_db(sql)
         first = result[0] 
+        if len(answers_list) > 2 * (on_question):
+            del answers_list[-1]
+            del answers_list[-1]
         return render_template("questions.html", result=result, question=first[1], id=id, nextid=on_question+1, answers_list=answers_list)
     else:  # If the questionid is not valid, aka all questions have been asked
-        
-        return render_template("scoring.html", answers_list=answers_list)
+        if len(answers_list) > 2 * (on_question):
+            del answers_list[-1]
+            del answers_list[-1]
+        total = 0
+        for i in range(len(answers_list)):
+            if i % 2 == 0:
+                pass
+            else:
+                total += int(answers_list[i])
+        return render_template("scoring.html", answers_list=answers_list, total=total)
     
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():

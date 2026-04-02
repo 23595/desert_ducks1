@@ -7,7 +7,7 @@
     <title>Setting: {{result[0]}}</title>
 </head>
 <body>
-    <div class="centre"><h1><strong>You have chosen:</strong> {{result[0]}}</h1></div><!--setting name-->
+    <div class="centre"><h1><strong>You have chosen:</strong> {{ result[0].title() }}</h1></div><!--setting name-->
     <div class="centre"><h3>{{result[1]}}</h3></div><!--description of setting-->
     <div class="centre">
         <a href="{{  url_for('setting_select')  }}" class="hide_link" style="display: inline-block;">
