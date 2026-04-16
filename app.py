@@ -1,5 +1,5 @@
 from flask import Flask, g, render_template, request
-from flask import jsonify
+import json
 import sqlite3
 import random
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -50,10 +50,6 @@ def home():
 @app.route('/admin_login')
 def admin_login():
     return render_template("login.html")
-
-@app.route('/admin_view')
-def admin_view():
-    return render_template("admin.html")
                         
 @app.route('/setting_select')
 def setting_select():
@@ -171,7 +167,13 @@ def login():
 FROM questions_bridge
 JOIN settings ON questions_bridge.setting_id=settings.setting_id
 JOIN questions ON questions_bridge.question_id=questions.question_id;"""
-                return render_template("admin.html")  # go to admin page
+                both_names = query_db(sql)
+                data_dict = {}
+                for setting, question in both_names:
+                    if setting not in data_dict:
+                        data_dict[setting] = []
+                    data_dict[setting].append(question)
+                return render_template("admin.html", both_names=both_names, setting_names=data_dict.keys(), json_data=json.dumps(data_dict))  # go to admin page
             else:
                 return render_template("login.html", message='Incorrect Password')  # Gives error message
         else:

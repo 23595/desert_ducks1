@@ -27,7 +27,7 @@
             margin: auto;
             background-color: #d5d5ae;
             outline: 5px solid #aac48d;
-            margin-top: 10%;
+            margin-top: 45px;
         }
         p{
             text-align: center;
@@ -44,6 +44,13 @@
         .submit:hover{
             background-color: rgb(51, 88, 51);
         }
+        select {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #f1f1f1;
+        }
     </style>
 </head>
 <body>
@@ -59,25 +66,38 @@
             </form>
         </div>
         <div class="admin_function">
-            <h1>Add new admin</h1>
-            <form action="{{ url_for('new_user') }}" method="POST">
-                <label for="username">Username: </label>
-                <input type="text" id="username" name="username" required><br>
-                <label for="password">Password: </label>
-                <input type="password" id="password" name="password" required><br>
-                <input type="submit" value="Create User" class="submit">
-            </form>
-        </div>
-        <div class="admin_function">
             <h1>View questions and answers</h1>
             <form action="{{ url_for('new_user') }}" method="POST">
-                <label for="username">Username: </label>
-                <input type="text" id="username" name="username" required><br>
-                <label for="password">Password: </label>
-                <input type="password" id="password" name="password" required><br>
-                <input type="submit" value="Create User" class="submit">
+                <label for="setting">Setting: </label>
+                <select id="setting" name="setting" onchange="refreshQuestions()">
+                    <option hidden disabled selected value></option>
+                    {% for name in setting_names %}
+                        <option value={{name}}>{{ name.title() }}</option>
+                    {% endfor %}
+                </select>
+                <label for="question">Question: </label>
+                <select id="question" name="question">
+                    <option hidden disables selected value></option>
+                </select>
             </form>
         </div>
     </div>
+<script>
+    const data = {{ json_data|safe }};
+    function refreshQuestions() {
+        const settingSelect = document.getElementById('setting');
+        const questionSelect = document.getElementById('question');
+        const selectedValue = settingSelect.value;
+
+        questionSelect.innerHTML = '<option hidden disables selected value></option>';
+
+        data[selectedValue].forEach(word => {
+            let option = document.createElement('option');
+            option.value = word;
+            option.text = word;
+            questionSelect.appendChild(option);
+        });
+    }
+</script>
 </body>
 </html>
