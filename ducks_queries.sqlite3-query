@@ -46,10 +46,16 @@ SELECT game_logic.ans_points
 FROM game_logic
 JOIN answer_options ON game_logic.option_id = answer_options.option_id
 WHERE game_logic.setting_id = 1
-  AND game_logic.question_id = 1
-  AND answer_options.answer_text = 'go away';
+AND game_logic.question_id = 1
+AND answer_options.answer_text = 'go away';
 
 
 SELECT question_id 
 FROM questions_bridge
 WHERE setting_id = 1;
+
+SELECT settings.setting_name, questions.question_text, answer_options.answer_text, game_logic.ans_points, game_logic.ans_explain
+FROM game_logic
+JOIN settings ON game_logic.setting_id=settings.setting_id
+JOIN answer_options ON game_logic.option_id=answer_options.option_id
+JOIN questions ON game_logic.question_id=questions.question_id;

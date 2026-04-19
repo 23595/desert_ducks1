@@ -16,7 +16,7 @@
             display: grid;
             width: 60%;
             margin: auto;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 2%;
         }
         .admin_function{
@@ -51,6 +51,11 @@
             border-radius: 4px;
             background-color: #f1f1f1;
         }
+        .answer-grid{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin: 10px 0px;
+        }
     </style>
 </head>
 <body>
@@ -76,14 +81,19 @@
                     {% endfor %}
                 </select>
                 <label for="question">Question: </label>
-                <select id="question" name="question">
+                <select id="question" name="question" onchange="refreshAnswers()">
                     <option hidden disables selected value></option>
                 </select>
             </form>
+            <div id="answers" class="answer-grid">
+                <div>Answer Text</div><div>Points and Explaination</div>
+            </div>
         </div>
     </div>
 <script>
-    const data = {{ json_data|safe }};
+    const data = {{ setting_data|safe }};
+    const all_data = {{ everything|safe }};
+
     function refreshQuestions() {
         const settingSelect = document.getElementById('setting');
         const questionSelect = document.getElementById('question');
@@ -97,6 +107,30 @@
             option.text = word;
             questionSelect.appendChild(option);
         });
+    }
+
+    function refreshAnswers() {
+        const selectedSetting = document.getElementById('setting').value;
+        const selectedQuestion = document.getElementById('question').value;
+        const answerDisplay = document.getElementById('answers');
+
+        const settingMap = all_data[selectedSetting];
+        const questionMap = settingMap[selectedQuestion];
+
+        answerDisplay.innerHTML = '<div>Answer Text</div><div>Points and Explaination</div>';
+        
+        const fragment = document.createDocumentFragment();
+        
+        Object.entries(questionMap).forEach(([value, key]) => {
+            const valueDiv = document.createElement('div');
+            valueDiv.textContent = value;
+            fragment.appendChild(valueDiv);
+            const keyDiv = document.createElement('div');
+            keyDiv.textContent = key;
+            fragment.appendChild(keyDiv);
+        });
+
+        answerDisplay.appendChild(fragment)
     }
 </script>
 </body>
