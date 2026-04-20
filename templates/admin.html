@@ -16,7 +16,7 @@
             display: grid;
             width: 60%;
             margin: auto;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 2%;
         }
         .admin_function{
@@ -56,6 +56,10 @@
             grid-template-columns: 1fr 1fr;
             margin: 10px 0px;
         }
+        .answer-heading{
+            padding: 5%;
+            background-color: #aac48d;
+        }
     </style>
 </head>
 <body>
@@ -86,8 +90,12 @@
                 </select>
             </form>
             <div id="answers" class="answer-grid">
-                <div>Answer Text</div><div>Points and Explaination</div>
+                <div class="answer-heading"><strong>Answer Text</strong></div>
+                <div class="answer-heading"><strong>Points and Explaination</strong></div>
             </div>
+        </div>
+        <div class="admin_function">
+            <h1></h1>
         </div>
     </div>
 <script>
@@ -98,8 +106,10 @@
         const settingSelect = document.getElementById('setting');
         const questionSelect = document.getElementById('question');
         const selectedValue = settingSelect.value;
-
+        
+        const answerDisplay = document.getElementById('answers');
         questionSelect.innerHTML = '<option hidden disables selected value></option>';
+        answerDisplay.innerHTML = '<div class="answer-heading"><strong>Answer Text</strong></div><div class="answer-heading"><strong>Points and Explaination</strong></div>';
 
         data[selectedValue].forEach(word => {
             let option = document.createElement('option');
@@ -117,7 +127,7 @@
         const settingMap = all_data[selectedSetting];
         const questionMap = settingMap[selectedQuestion];
 
-        answerDisplay.innerHTML = '<div>Answer Text</div><div>Points and Explaination</div>';
+        answerDisplay.innerHTML = '<div class="answer-heading"><strong>Answer Text</strong></div><div class="answer-heading"><strong>Points and Explaination</strong></div>';
         
         const fragment = document.createDocumentFragment();
         
