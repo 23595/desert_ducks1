@@ -60,23 +60,44 @@
             padding: 5%;
             background-color: #aac48d;
         }
+        form div {
+            width: max-content;
+            margin: auto;
+        }
+        .error_message{
+            width: 90%;
+            background-color: #AC6060;
+            color: white;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    {% if error_message %}
+    <div class="error_message">
+        {{error_message }}
+    </div>
+    {% endif %}
     <div class="grid">
         <div class="admin_function">
             <h1>Add new admin</h1> <!--Allows user to add new admin to the database-->
             <form action="{{ url_for('new_user') }}" method="POST">
+                <div>
                 <label for="username">Username: </label>
-                <input type="text" id="username" name="username" required><br> <!--Input the admin's username - input required-->
+                <input type="text" id="username" name="username" required maxlength="15"><br> <!--Input the admin's username - input required-->
+                </div><div>
                 <label for="password">Password: </label>
-                <input type="password" id="password" name="password" required><br><!--Input the new admin's password - input required-->
+                <input type="password" id="password" name="password" required maxlength="15"><br><!--Input the new admin's password - input required-->
+                </div><div>
+                <label for="password_confirm">Confirm Password: </label>
+                <input type="password" id="password_confirm" name="password_confirm" required maxlength="15"><br>
+                </div>
                 <input type="submit" value="Create User" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
             </form>
         </div>
         <div class="admin_function">
             <h1>View questions and answers</h1> <!--Shows the answer options, point values, and explainations for a selected setting and question-->
-            <form action="{{ url_for('new_user') }}" method="POST">
+            <form>
                 <label for="setting">Setting: </label>
                 <select id="setting" name="setting" onchange="refreshQuestions()"> <!--Dropdown menu to select setting-->
                     <option hidden disabled selected value></option>

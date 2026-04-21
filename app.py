@@ -140,16 +140,28 @@ def questions(id, on_question):  # id is the id of the setting. on_question is t
     
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
+    error_message = ''
     if request.method == 'POST':
         password = request.form['password']
         username = request.form['username']
-        hashed_pw = generate_password_hash(password)
-        with sqlite3.connect(DATABASE) as db:
-            cursor = db.cursor()
-            sql = """INSERT INTO admin_login (username, encrypted_pw, authority_lvl)
-            VALUES ('""" + username + "', '" + hashed_pw + "', 1);"
-            cursor.execute(sql)
-    return render_template("admin.html")
+        check_password = request.form['password_confirm']
+        if len(username) < 4:
+            error_message = 'Username must be at least 4 characters'
+            return render_template("admin.html", error_message=error_message) #Returns an error message if the username is too short
+        elif len(password) < 4:
+            error_message = 'Password must be at least 4 characters'
+            return render_template("admin.html", error_message=error_message) #Returns an error message if the password is too short
+        elif check_password != password:
+            error_message = 'Passwords did not match. Ensure that Password and Confirm Password are the same.'
+            return render_template("admin.html", error_message=error_message) #Returns an error message if the passwords do not match
+        else:
+            hashed_pw = generate_password_hash(password)
+            with sqlite3.connect(DATABASE) as db:
+                cursor = db.cursor()
+                sql = """INSERT INTO admin_login (username, encrypted_pw, authority_lvl)
+                VALUES ('""" + username + "', '" + hashed_pw + "', 1);"
+                cursor.execute(sql)
+    return render_template("admin.html", error_message=error_message)
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -186,7 +198,7 @@ JOIN questions ON questions_bridge.question_id=questions.question_id;"""
                     if ques not in everything_dict[set]:
                         everything_dict[set][ques] = {}
                     everything_dict[set][ques][ans_txt] = [ans_pts, ans_ex]
-                return render_template("admin.html", setting_names=data_dict.keys(), setting_data=json.dumps(data_dict), everything=json.dumps(everything_dict))  # go to admin page
+                return render_template("admin.html", setting_names=data_dict.keys(), setting_data=json.dumps(data_dict), everything=json.dumps(everything_dict), error_message='')  # go to admin page
             else:
                 return render_template("login.html", message='Incorrect Password')  # Gives error message
         else:
