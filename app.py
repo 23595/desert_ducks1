@@ -191,6 +191,7 @@ JOIN questions ON questions_bridge.question_id=questions.question_id;"""
                     if setting not in data_dict:
                         data_dict[setting] = []
                     data_dict[setting].append(question)
+                # Get all settings, questions, and answers
                 sql = """SELECT settings.setting_name, questions.question_text, answer_options.answer_text, game_logic.ans_points, game_logic.ans_explain
                     FROM game_logic
                     JOIN settings ON game_logic.setting_id=settings.setting_id
@@ -204,7 +205,13 @@ JOIN questions ON questions_bridge.question_id=questions.question_id;"""
                     if ques not in everything_dict[set]:
                         everything_dict[set][ques] = {}
                     everything_dict[set][ques][ans_txt] = [ans_pts, ans_ex]
-                return render_template("admin.html", setting_names=data_dict.keys(), setting_data=json.dumps(data_dict), everything=json.dumps(everything_dict), error_message='')  # go to admin page
+                # Get list of existing usernames
+                sql = """SELECT username FROM admin_login"""
+                results = query_db(sql)
+                usernames = []
+                for result in results:
+                    usernames.append(result[0])
+                return render_template("admin.html", setting_names=data_dict.keys(), setting_data=json.dumps(data_dict), everything=json.dumps(everything_dict), error_message='', usernames=usernames)  # go to admin page
             else:
                 return render_template("login.html", message='Incorrect Password')  # Gives error message
         else:

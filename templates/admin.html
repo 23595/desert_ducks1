@@ -134,6 +134,7 @@
 <script>
     const data = {{ setting_data|safe }};
     const all_data = {{ everything|safe }};
+    const user_list = {{ username|safe }}
 
     function refreshQuestions() { //Runs when selected setting is changed. Displays questions corresponding to that setting
         const settingSelect = document.getElementById('setting');
