@@ -69,13 +69,25 @@
             background-color: #AC6060;
             color: white;
             text-align: center;
+            margin: auto;
+            margin-top: 10px;
+            height: 30px;
+            border-radius: 5px;
+            padding-top: 3px;
+        }
+        .error_message img{
+            float: right;
+            width: 20px;
+            margin-right: 4px;
+            margin-top: 3px;
         }
     </style>
 </head>
 <body>
     {% if error_message %}
-    <div class="error_message">
+    <div class="error_message" id="error_message">
         {{error_message }}
+        <img src="/static/images/x_button.png" alt="close_notif" onclick="hideBox()">
     </div>
     {% endif %}
     <div class="grid">
@@ -162,6 +174,11 @@
         });
 
         answerDisplay.appendChild(fragment) //Add elements to the grid to display them
+    }
+
+    function hideBox() {
+        errorMessageBox = document.getElementById('error_message');
+        errorMessageBox.style.display = "none";
     }
 </script>
 </body>

@@ -145,15 +145,21 @@ def new_user():
         password = request.form['password']
         username = request.form['username']
         check_password = request.form['password_confirm']
-        if len(username) < 4:
+        # Find existing usernames to prevent overlap
+        sql = "SELECT username FROM admin_login WHERE username = '" + username + "';"
+        overlap = query_db(sql)
+        if overlap:
+            error_message = 'Username already exists.'
+            return render_template("admin.html", error_message=error_message) # Returns an error message if the username already exists
+        elif len(username) < 4:
             error_message = 'Username must be at least 4 characters'
-            return render_template("admin.html", error_message=error_message) #Returns an error message if the username is too short
+            return render_template("admin.html", error_message=error_message) # Returns an error message if the username is too short
         elif len(password) < 4:
             error_message = 'Password must be at least 4 characters'
-            return render_template("admin.html", error_message=error_message) #Returns an error message if the password is too short
+            return render_template("admin.html", error_message=error_message) # Returns an error message if the password is too short
         elif check_password != password:
             error_message = 'Passwords did not match. Ensure that Password and Confirm Password are the same.'
-            return render_template("admin.html", error_message=error_message) #Returns an error message if the passwords do not match
+            return render_template("admin.html", error_message=error_message) # Returns an error message if the passwords do not match
         else:
             hashed_pw = generate_password_hash(password)
             with sqlite3.connect(DATABASE) as db:

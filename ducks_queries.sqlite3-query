@@ -4,6 +4,7 @@ SELECT * FROM settings;
 
 SELECT COUNT(setting_id) FROM settings;
 
+SELECT username FROM admin_login WHERE username = '23595';
 
 SELECT game_logic.logic_id, settings.setting_name, questions.question_text, answer_options.answer_text, game_logic.ans_points, game_logic.ans_explain
 FROM game_logic
