@@ -129,19 +129,13 @@
             </div>
         </div>
         <div class="admin_function">
-            <h1>Add new admin</h1> <!--Allows user to remove an admin from the database-->
+            <h1>Remove admin</h1> <!--Allows user to remove an admin from the database-->
             <form action="{{ url_for('new_user') }}" method="POST">
                 <div>
-                <label for="username">Username: </label>
+                <label for="username">Username to delete: </label>
                 <input type="text" id="username" name="username" required maxlength="15"><br> <!--Input the admin's username - input required-->
-                </div><div>
-                <label for="password">Password: </label>
-                <input type="password" id="password" name="password" required maxlength="15"><br><!--Input the new admin's password - input required-->
-                </div><div>
-                <label for="password_confirm">Confirm Password: </label>
-                <input type="password" id="password_confirm" name="password_confirm" required maxlength="15"><br>
                 </div>
-                <input type="submit" value="Create User" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
+                <input type="submit" value="Remove User" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
             </form>
         </div>
         <div> 
