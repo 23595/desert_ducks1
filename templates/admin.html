@@ -55,6 +55,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             margin: 10px 0px;
+            outline: gray;
         }
         .answer-heading{
             padding: 5%;
@@ -128,7 +129,19 @@
             </div>
         </div>
         <div class="admin_function">
-            <h1></h1>
+            <h1>Remove admin</h1> <!--Allows user to remove an admin from the database-->
+            <form action="{{ url_for('new_user') }}" method="POST">
+                <div>
+                <label for="username">Username to delete: </label>
+                <input type="text" id="username" name="username" required maxlength="15"><br> <!--Input the admin's username - input required-->
+                </div>
+                <input type="submit" value="Remove User" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
+            </form>
+        </div>
+        <div> 
+            <div class="button centre" style="margin-top: 20px; background-color: #aac48d;">
+                <a href="{{  url_for('home')  }}" style="text-decoration: none;">Return to Home</a>
+            </div>
         </div>
     </div>
 <script>
