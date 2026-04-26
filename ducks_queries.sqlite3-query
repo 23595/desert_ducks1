@@ -4,7 +4,6 @@ SELECT * FROM settings;
 
 SELECT COUNT(setting_id) FROM settings;
 
-SELECT username FROM admin_login WHERE username = '23595';
 
 SELECT game_logic.logic_id, settings.setting_name, questions.question_text, answer_options.answer_text, game_logic.ans_points, game_logic.ans_explain
 FROM game_logic
@@ -60,3 +59,10 @@ FROM game_logic
 JOIN settings ON game_logic.setting_id=settings.setting_id
 JOIN answer_options ON game_logic.option_id=answer_options.option_id
 JOIN questions ON game_logic.question_id=questions.question_id;
+
+DELETE FROM settings done;
+DELETE FROM questions done;
+DELETE FROM questions_bridge done;
+DELETE FROM game_logic done;
+DELETE FROM answer_options done;
+DROP TABLE images;
