@@ -81,8 +81,15 @@ VALUES ('What do you primarily eat?'),
 ('What kind of feet do you have?'),
 ('What shape are your wings?'),
 ('Where do you lay eggs?'),
-('How large are you?'),
-('What kind of eggs do you lay?');
+('What kind of eggs do you lay?'),
+('How large are you?');
+
+INSERT INTO questions_bridge (setting_id, question_id)
+VALUES (1, 1), (1,2), (1,3), (1,4), (1,5), (1,6), (1,7),
+(2,1), (2,2), (2,3), (2,4), (2,5), (2,6), (2,7),
+(3,1), (3,2), (3,3), (3,4), (3,5), (3,6), (3,7),
+(4,1), (4,2), (4,3), (4,4), (4,5), (4,6), (4,7),
+(5,1), (5,3), (5,4), (5,5), (5,6), (5,7); 
 
 INSERT INTO answer_options (question_id, answer_text)
 VALUES (1, 'Small fish and crustaceans'),
@@ -93,5 +100,27 @@ VALUES (1, 'Small fish and crustaceans'),
 (2, 'Thick and warm'),
 (2, 'Plain and light'),
 (2, 'Fancy and light'),
-(2, 'Seeds and nuts'),
-(2, 'Scraps and scavenged leftovers'),
+(2, 'Oily and waterproof'),
+(3, 'Large and webbed'),
+(3, 'Strong and muscular for running'),
+(3, 'Curved and sharp'),
+(4, 'Short and rounded'),
+(4, 'Long and narrow'),
+(4, 'Long and broad'),
+(4, 'Short and pointed'),
+(5, 'Burrows in the ground'),
+(5, 'Nests in trees'),
+(5, 'Nests on the ground'),
+(6, 'One large egg at a time'),
+(6, 'A few medium-sized eggs'),
+(6, 'Lots and lots of small eggs'),
+(7, 'Small and lightweight'),
+(7, 'Big and bulky'),
+
+INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
+VALUES (5,1,1, 0, 'You struggle to find fish and crustaceans in a city'),
+(5,1,2, 5, 'Most of the ground is paved, so finding bugs is difficult'),
+(5,1,3, 5, 'There are not that many trees around to eat the fruits of'),
+(5,1,4, 10, ''),
+(5,1,5, 20, 'There is plenty of trash and human leftovers for you to eat')
+(5,3,1, -5, 'You struggle to find fish and crustaceans in a city')
