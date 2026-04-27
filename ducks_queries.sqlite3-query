@@ -66,3 +66,32 @@ DELETE FROM questions_bridge done;
 DELETE FROM game_logic done;
 DELETE FROM answer_options done;
 DROP TABLE images;
+
+
+INSERT INTO settings (setting_name, setting_desc)
+VALUES ('Dry Scrubland', 'Hot and dry with sparse bushes and few trees. Many predators on the ground.'),
+('Temperate Rainforest', 'Cool temperatures with heavy rain. Tall trees form a dense canopy.'),
+('Alpine Tundra', 'Freezing temperatures, thin air, and violent wind. No trees and very little vegetation'),
+('Salt Marsh', 'Tidal mudflats and tall grasses. Plenty of fish but no cover from the sky.'),
+('Urban Jungle', 'A dense city. Not much vegetation or wildlife but plenty of food waste and trash.');
+
+INSERT INTO questions (question_text)
+VALUES ('What do you primarily eat?'),
+('What are your feathers like?'),
+('What kind of feet do you have?'),
+('What shape are your wings?'),
+('Where do you lay eggs?'),
+('How large are you?'),
+('What kind of eggs do you lay?');
+
+INSERT INTO answer_options (question_id, answer_text)
+VALUES (1, 'Small fish and crustaceans'),
+(1, 'Bugs in the ground'),
+(1, 'Fruit from trees'),
+(1, 'Seeds and nuts'),
+(1, 'Scraps and scavenged leftovers'),
+(2, 'Thick and warm'),
+(2, 'Plain and light'),
+(2, 'Fancy and light'),
+(2, 'Seeds and nuts'),
+(2, 'Scraps and scavenged leftovers'),
