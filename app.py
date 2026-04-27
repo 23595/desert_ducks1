@@ -218,28 +218,18 @@ def remove_user():
     if request.method == 'POST':
         username = request.form['username']
         # Find existing usernames
-        sql = "SELECT username FROM admin_login WHERE username = '" + username + "';"
+        sql = 'SELECT username FROM admin_login WHERE username = "' + username + '";'
         overlap = query_db(sql)
         if overlap:
-            error_message = 'Username already exists.'
-            # Returns an error message if the username already exists
-        elif len(username) < 4:
-            error_message = 'Username must be at least 4 characters'
-             # Returns an error message if the username is too short
-        elif len(password) < 4:
-            error_message = 'Password must be at least 4 characters'
-             # Returns an error message if the password is too short
-        elif check_password != password:
-            error_message = 'Passwords did not match. Ensure that Password and Confirm Password are the same.'
-            # Returns an error message if the passwords do not match
-        else:
-            hashed_pw = generate_password_hash(password)
             with sqlite3.connect(DATABASE) as db:
                 cursor = db.cursor()
-                sql = """INSERT INTO admin_login (username, encrypted_pw, authority_lvl)
-                VALUES ('""" + username + "', '" + hashed_pw + "', 1);"
+                sql = """DELETE FROM admin_login
+                WHERE username = '""" + username + "';"
                 cursor.execute(sql)
-            error_message = "New admin '" + username +"' created successfully"
+            error_message = "Admin '" + username +"' has been deleted"
+        else:
+            error_message = 'Username not found. Check spelling and capitalisation.'
+            # Returns an error message if it cannot find the username
     return render_template("admin.html", setting_names=data_dict.keys(), setting_data=json.dumps(data_dict), everything=json.dumps(everything_dict), usernames=usernames, error_message=error_message)
     
 
