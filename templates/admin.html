@@ -130,7 +130,7 @@
         </div>
         <div class="admin_function">
             <h1>Remove admin</h1> <!--Allows user to remove an admin from the database-->
-            <form action="{{ url_for('new_user') }}" method="POST">
+            <form action="{{ url_for('remove_user') }}" method="POST">
                 <div>
                 <label for="username">Username to delete: </label>
                 <input type="text" id="username" name="username" required maxlength="15"><br> <!--Input the admin's username - input required-->

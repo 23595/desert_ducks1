@@ -81,17 +81,159 @@ VALUES ('What do you primarily eat?'),
 ('What kind of feet do you have?'),
 ('What shape are your wings?'),
 ('Where do you lay eggs?'),
-('How large are you?'),
-('What kind of eggs do you lay?');
+('What kind of eggs do you lay?'),
+('How large are you?');
+
+INSERT INTO questions_bridge (setting_id, question_id)
+VALUES (1, 1), (1,2), (1,3), (1,4), (1,5), (1,6), (1,7),
+(2,1), (2,2), (2,3), (2,4), (2,5), (2,6), (2,7),
+(3,1), (3,2), (3,3), (3,4), (3,5), (3,6), (3,7),
+(4,1), (4,2), (4,3), (4,4), (4,5), (4,6), (4,7),
+(5,1), (5,3), (5,4), (5,5), (5,6), (5,7); 
 
 INSERT INTO answer_options (question_id, answer_text)
-VALUES (1, 'Small fish and crustaceans'),
-(1, 'Bugs in the ground'),
-(1, 'Fruit from trees'),
-(1, 'Seeds and nuts'),
-(1, 'Scraps and scavenged leftovers'),
-(2, 'Thick and warm'),
-(2, 'Plain and light'),
-(2, 'Fancy and light'),
-(2, 'Seeds and nuts'),
-(2, 'Scraps and scavenged leftovers'),
+VALUES (1, 'Small fish and crustaceans'),1
+(1, 'Fruit from trees'),2
+(1, 'Seeds and nuts'),3
+(1, 'Scraps and scavenged leftovers'),4
+(2, 'Thick and warm'),5
+(2, 'Plain and light'),6
+(2, 'Oily and waterproof'),7
+(3, 'Large and webbed'),8
+(3, 'Strong and muscular for running'),9
+(3, 'Curved and sharp'),10
+(4, 'Short and rounded'),11
+(4, 'Long and narrow'),12
+(4, 'Long and broad'),13
+(4, 'Short and pointed'),14
+(5, 'Burrows in the ground'),15
+(5, 'Nests in trees'),16
+(5, 'Nests on the ground'),17
+(6, 'One large egg at a time'),18
+(6, 'A few medium-sized eggs'),19
+(6, 'Lots and lots of small eggs'),20
+(7, 'Small and lightweight'),21
+(7, 'Big and bulky');22
+
+
+INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
+VALUES (5,1,1, 0, 'You struggle to find fish and crustaceans in a city'),
+(5,1,2, 5, 'There are not that many trees around to eat the fruits of'),
+(5,1,3, 10, 'You are able to find some seeds and nuts in the city'),
+(5,1,4, 20, 'There is plenty of trash and human leftovers for you to eat'),
+
+(5,3,8, -15, 'Webbed feet provide no grip on pavement and make you clumsy around traffic.'),
+(5,3,9, 5, 'Running is viable on streets, but fences and walls often block your escape.'),
+(5,3,10, 15, 'Sharp talons are perfect for gripping concrete ledges and metal wires.'),
+
+(5,4,11, 20, 'High agility lets you dodge traffic and navigate tight alleyways with ease.'),
+(5,4,12, -20, 'Long wings are a disaster in narrow alleys and high-wind urban corridors.'),
+(5,4,13, -10, 'Broad wings make you too slow to maneuver around buildings and moving vehicles.'),
+(5,4,14, 10, 'Speed helps you zip between city parks, though you lack agility in tight spaces.'),
+
+(5,5,15, -20, 'It is nearly impossible to dig through concrete and asphalt to make a home.'),
+(5,5,17, -15, 'Ground nests are constantly disturbed by pedestrians, pets, and cleaning crews.'),
+(5,5,16, 10, 'City trees or building rafters provide a safe height away from dangers.'),
+
+(5,7,21, 20, 'Being small lets you go unnoticed and squeeze into tiny, safe hiding spots.'),
+(5,7,22, -10, 'A bulky body is a liability when trying to hide or survive on limited food scraps.'),
+
+
+
+INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
+VALUES 
+(1,2,5, -20, 'Thick feathers will cause you to suffer from heatstroke in the scrubland.'),
+(1,2,6, 15, 'Plain feathers provide decent camouflage against the dry earth.'),
+(1,2,7, 15, 'Oily feathers are unnessesary in such a dry environment.'),
+
+(1,3,9, 20, 'Strong legs allow you to sprint away from ground predators.'),
+(1,3,8, -15, 'Webbed feet are clumsy on hot sand and make it harder to navigate dense bushes.'),
+(1,3,10, 10, 'Sharp talons are useful for defending yourself against snakes and small mammals.'),
+
+(1,4,14, 15, 'Short, pointed wings allow for quick bursts of speed to escape an ambush.'),
+(1,4,11, 10, 'Small rounded wings allow you to weave through sparse bushes to hide from predators.'),
+(1,4,12, 5, 'Long wings are great for travel, but make it difficult to take off quickly in thickets.'),
+(1,4,13, 0, 'Broad wings are unwieldy in and make you a very visible target.'),
+
+(1,5,15, 15, 'Burrowing underground keeps your eggs cool and hidden from predators.'),
+(1,5,17, -10, 'Nesting on the ground makes your eggs an easy snack for snakes.'),
+(1,5,16, 5, 'Trees are very rare here, so finding a safe nesting spot is a constant struggle.'),
+
+(1,7,22, -15, 'A large body requires a lot of water and food, both of which are scarce here.');
+(1,7,21, 10, 'Being small makes you much more difficult to find and catch in the bushes.');
+
+INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
+VALUES 
+(2,1,1, 5, 'While there are water sources, hunting fish can be quite difficult and time-consuming.'),
+(2,1,2, 5, 'There is plenty of fruit to be found in the dense canopy.'),
+(2,1,3, 10, 'Seeds are available, though they are more difficult to eat and digest than the fruits.'),
+(2,1,4, 0, 'In this deep wilderness, you will find almost no human-made leftovers.'),
+
+(2,2,7, 20, 'Oily feathers are essential to keep your skin dry in the constant rain.'),
+(2,2,5, 10, 'While they provide warmth, thick feathers get dangerously heavy when soaked.'),
+(2,2,6, 5, 'Simple feathers offer very little protection against the constant rainy chill.'),
+
+(2,3,10, 15, 'Sharp talons help you grip slippery, moss-covered branches.'),
+(2,3,8, 5, 'Webbed feet allow for swimming, but you will struggle to perch on high branches.'),
+(2,3,9, -15, 'The forest floor is a maze of roots and ferns, making running quickly difficult.'),
+
+(2,4,11, 20, 'Short, rounded wings let you maneuver through thick branches without crashing.'),
+(2,4,12, -20, 'Long, soaring wings are impossible to open in the cramped, crowded forest canopy.'),
+(2,4,13, -10, 'Broad wings provide lift but will constantly hit trunks and branches.'),
+(2,4,14, 10, 'Pointed wings offer speed, though they lack the agility of rounded wings.'),
+
+(2,5,16, 20, 'High tree nests keep your offspring safe from the soggy forest floor.'),
+(2,5,15, -5, 'The ground is often waterlogged, which can drown your eggs or rot the nest.'),
+(2,5,17, -15, 'Nesting on the ground leaves your eggs vulnerable to predators.'),
+
+(2,7,23, 15, 'A small body size helps you zip through the dense vegetation easily.'),
+(2,7,24, -10, 'A large, bulky body makes it difficult to navigate through the dense undergrowth.');
+
+INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
+VALUES 
+(3,1,3, 15, 'Hardy seeds are one of the few reliable food sources in the cold.'),
+(3,1,1, -5, 'Lakes and waterways are often frozen, making it very difficult to hunt for fish.'),
+(3,1,2, -20, 'There are no trees in the tundra, so fruit is a non-existent food source.'),
+(3,1,4, 0, 'Human presence is extremely rare on these peaks, leaving very little trash to scavenge.'),
+
+(3,2,6, -10, 'Plain, light feathers offer no protection against the sub-zero mountain temperatures.'),
+(3,2,7, 5, 'Waterproofing helps with snow, but without thick down, you will still freeze.'),
+(3,2,5, 20, 'Thick, downy feathers are the only thing keeping you from freezing at night.'),
+
+(3,5,15, 10, 'A burrow provides a necessary break from the biting mountain winds.'),
+(3,5,16, -20, 'You cannot build a nest in a tree when there are no trees in the landscape.'),
+(3,5,17, -5, 'The ground is extremely cold and exposed to wind, making incubation very difficult.'),
+
+(3,6,20, 15, 'One large egg is easier to keep warm than a dozen small ones in the cold.'),
+(3,6,21, 5, 'A few eggs are manageable, but you will struggle to keep them all warm in the frost.'),
+(3,6,22, -15, 'Small eggs lose heat rapidly, and you cannot cover enough of them to keep them alive.'),
+
+(3,7,24, 15, 'A bulky body retains core heat much better than a small one.'),
+(3,7,23, -15, 'Small birds lose body heat much faster than large ones, leading to rapid exhaustion.');
+
+INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
+VALUES 
+(4,1,1, 20, 'The marsh contains many fish if you have the patience to hunt.'),
+(4,1,2, -15, 'Salt marshes lack fruit-bearing trees, leaving you with nothing to eat.'),
+(4,1,3, 5, 'Marsh grasses provide some seeds, but they aren''t as nutritious as fish.'),
+(4,1,4, -10, 'Marshes are usually far from human trash, making scavenging difficult.'),
+
+(4,2,5, -10, 'Thick feathers soak up water like a sponge and make you too heavy to fly.'),
+(4,2,6, 15, 'Mottled, plain feathers help you blend into the tall, brown marsh grasses.'),
+(4,2,7, 15, 'Waterproof feathers are ideal for swimming and diving.'),
+
+(4,3,9, -15, 'Muscular running legs are useless in deep, sticky mud and tidal water.'),
+(4,3,10, 10, 'Sharp talons are helpful for catching slippery fish.'),
+(4,3,8, 20, 'Webbed feet allow you to swim and paddle through tidal currents.'),
+
+(4,4,13, 15, 'Broad wings help you take off quickly from the water’s surface.'),
+(4,4,11, 10, 'Short wings allow for a quick "vertical" takeoff to escape rising tides.'),
+(4,4,12, -10, 'Long, narrow wings make it very difficult to take off from water or mud.'),
+(4,4,14, 15, 'Short, pointed wings give you the speed needed to outfly aerial predators.'),
+
+(4,5,17, 5, 'Ground nests are common here, but you risk losing them to high tide.'),
+(4,5,15, -20, 'The incoming tide will flood a burrow and drown your eggs instantly.'),
+(4,5,16, -20, 'There are no trees here to build a nest in.'),
+
+(4,7,21, 10, 'Staying small helps you hide in the tall marsh grasses.'),
+(4,7,22, -10, 'A large body is difficult to hide in the grass and requires too much food.');
