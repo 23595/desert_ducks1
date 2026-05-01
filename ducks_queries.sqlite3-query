@@ -92,28 +92,28 @@ VALUES (1,2), (1,3), (1,4), (1,5), (1,7),
 (5,1), (5,3), (5,4), (5,5), (5,7); 
 
 INSERT INTO answer_options (question_id, answer_text)
-VALUES (1, 'Small fish and crustaceans'),1
-(1, 'Fruit from trees'),2
-(1, 'Seeds and nuts'),3
-(1, 'Scraps and scavenged leftovers'),4
-(2, 'Thick and warm'),5
-(2, 'Plain and light'),6
-(2, 'Oily and waterproof'),7
-(3, 'Large and webbed'),8
-(3, 'Strong and muscular for running'),9
-(3, 'Curved and sharp'),10
-(4, 'Short and rounded'),11
-(4, 'Long and narrow'),12
-(4, 'Long and broad'),13
-(4, 'Short and pointed'),14
-(5, 'Burrows in the ground'),15
-(5, 'Nests in trees'),16
-(5, 'Nests on the ground'),17
-(6, 'One large egg at a time'),18
-(6, 'A few medium-sized eggs'),19
-(6, 'Lots and lots of small eggs'),20
-(7, 'Small and lightweight'),21
-(7, 'Big and bulky');22
+VALUES (1, 'Small fish and crustaceans'),
+(1, 'Fruit from trees'),
+(1, 'Seeds and nuts'),
+(1, 'Scraps and scavenged leftovers'),
+(2, 'Thick and warm'),
+(2, 'Plain and light'),
+(2, 'Oily and waterproof'),
+(3, 'Large and webbed'),
+(3, 'Strong and muscular for running'),
+(3, 'Curved and sharp'),
+(4, 'Short and rounded'),
+(4, 'Long and narrow'),
+(4, 'Long and broad'),
+(4, 'Short and pointed'),
+(5, 'Burrows in the ground'),
+(5, 'Nests in trees'),
+(5, 'Nests on the ground'),
+(6, 'One large egg at a time'),
+(6, 'A few medium-sized eggs'),
+(6, 'Lots and lots of small eggs'),
+(7, 'Small and lightweight'),
+(7, 'Big and bulky');
 
 
 INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
@@ -136,7 +136,7 @@ VALUES (5,1,1, 0, 'You struggle to find fish and crustaceans in a city'),
 (5,5,16, 10, 'City trees or building rafters provide a safe height away from dangers.'),
 
 (5,7,21, 20, 'Being small lets you go unnoticed and squeeze into tiny, safe hiding spots.'),
-(5,7,22, -10, 'A bulky body is a liability when trying to hide or survive on limited food scraps.'),
+(5,7,22, -10, 'A bulky body is a liability when trying to hide or survive on limited food scraps.');
 
 
 
@@ -159,7 +159,7 @@ VALUES
 (1,5,17, -10, 'Nesting on the ground makes your eggs an easy snack for snakes.'),
 (1,5,16, 5, 'Trees are very rare here, so finding a safe nesting spot is a constant struggle.'),
 
-(1,7,22, -15, 'A large body requires a lot of water and food, both of which are scarce here.');
+(1,7,22, -15, 'A large body requires a lot of water and food, both of which are scarce here.'),
 (1,7,21, 10, 'Being small makes you much more difficult to find and catch in the bushes.');
 
 INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
@@ -186,8 +186,8 @@ VALUES
 (2,5,15, -5, 'The ground is often waterlogged, which can drown your eggs or rot the nest.'),
 (2,5,17, -15, 'Nesting on the ground leaves your eggs vulnerable to predators.'),
 
-(2,7,23, 15, 'A small body size helps you zip through the dense vegetation easily.'),
-(2,7,24, -10, 'A large, bulky body makes it difficult to navigate through the dense undergrowth.');
+(2,7,21, 15, 'A small body size helps you zip through the dense vegetation easily.'),
+(2,7,22, -10, 'A large, bulky body makes it difficult to navigate through the dense undergrowth.');
 
 INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
 VALUES 
