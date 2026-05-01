@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block left %}
+<div class="setting_box">
+    <h3 style="margin: 0px;"><strong>{{setting_name}}</strong></h3>
+</div>
 <div class="question_box">
     <h3>Your total score:</h3>
     <h1 style="text-align: center;"><strong>{{ total }}</strong></h1>
@@ -11,7 +14,7 @@
     <div style="background-color: #CBEDAB;">Question</div>
     <div style="background-color: #CBEDAB;">Points</div>
     {% for value in answers_list %}
-    <div>{{value}}</div>
+    <div style="font-size: small;">{{value}}</div>
     {% endfor %}
 </div>
 {% endblock %}

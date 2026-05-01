@@ -125,7 +125,7 @@ def questions(id, on_question):  # id is the id of the setting. on_question is t
         if len(answers_list) > 2 * (on_question):
             del answers_list[-1]
             del answers_list[-1]
-        return render_template("questions.html", result=result, question=first[1], id=id, nextid=on_question+1, answers_list=answers_list)
+        return render_template("questions.html", result=result, question=first[1], id=id, nextid=on_question+1, answers_list=answers_list, setting_name=first[0])
     else:  # If the questionid is not valid, aka all questions have been asked
         if len(answers_list) > 2 * (on_question):
             del answers_list[-1]
@@ -136,7 +136,10 @@ def questions(id, on_question):  # id is the id of the setting. on_question is t
                 pass
             else:
                 total += int(answers_list[i])
-        return render_template("scoring.html", answers_list=answers_list, total=total)
+        #Get setting name
+        sql = f'SELECT settings.setting_name FROM settings WHERE setting_id={id};'
+        setting_name = query_db(sql)
+        return render_template("scoring.html", answers_list=answers_list, total=total, setting_name=setting_name[0][0])
     
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
