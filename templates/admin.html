@@ -147,23 +147,31 @@
 <script>
     const data = {{ setting_data|safe }};
     const all_data = {{ everything|safe }};
-    const user_list = {{ username|safe }}
 
     function refreshQuestions() { //Runs when selected setting is changed. Displays questions corresponding to that setting
         const settingSelect = document.getElementById('setting');
         const questionSelect = document.getElementById('question');
         const selectedValue = settingSelect.value;
+        const questionList = data[selectedValue];
         
         const answerDisplay = document.getElementById('answers');
         questionSelect.innerHTML = '<option hidden disables selected value></option>'; //Resets existing dropdown values
         answerDisplay.innerHTML = '<div class="answer-heading"><strong>Answer Text</strong></div><div class="answer-heading"><strong>Points and Explaination</strong></div>';
 
-        data[selectedValue].forEach(word => { //Goes through each question for the setting
+        Object.entries(questionList).forEach((value) => {
+        //questionList.forEach((value, key) => {
             let option = document.createElement('option'); //Creates a new element
-            option.value = word;
-            option.text = word;
-            questionSelect.appendChild(option); //Adds element to the questions dropdown
+            option.value = value;
+            option.text = value;
+            questionSelect.appendChild(option);
         });
+
+        //data[selectedValue].forEach(word => { //Goes through each question for the setting
+        //    let option = document.createElement('option'); //Creates a new element
+        //    option.value = word;
+        //    option.text = word;
+        //    questionSelect.appendChild(option); //Adds element to the questions dropdown
+        //});
     }
 
     function refreshAnswers() {
