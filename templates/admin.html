@@ -23,7 +23,7 @@
             padding-left: 15px;
             padding-right: 15px;
             padding-bottom: 5px;
-            width:max-content;
+            width: 445px;
             margin: auto;
             background-color: #d5d5ae;
             outline: 5px solid #aac48d;
@@ -53,7 +53,8 @@
         }
         .answer-grid{
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            width: inherit;
+            grid-template-columns: min-content min-content auto;
             margin: 10px 0px;
             outline: gray;
         }
@@ -62,7 +63,7 @@
             background-color: #aac48d;
         }
         form div {
-            width: max-content;
+            width: fit-content;
             margin: auto;
         }
         .error_message{
@@ -115,7 +116,7 @@
                 <select id="setting" name="setting" onchange="refreshQuestions()"> <!--Dropdown menu to select setting-->
                     <option hidden disabled selected value></option>
                     {% for name in setting_names %}
-                        <option value={{name}}>{{ name.title() }}</option>
+                        <option value="{{name}}">{{ name.title() }}</option>
                     {% endfor %}
                 </select>
                 <label for="question">Question: </label>
@@ -153,25 +154,18 @@
         const questionSelect = document.getElementById('question');
         const selectedValue = settingSelect.value;
         const questionList = data[selectedValue];
-        
+        console.log(settingSelect)
+
         const answerDisplay = document.getElementById('answers');
         questionSelect.innerHTML = '<option hidden disables selected value></option>'; //Resets existing dropdown values
         answerDisplay.innerHTML = '<div class="answer-heading"><strong>Answer Text</strong></div><div class="answer-heading"><strong>Points and Explaination</strong></div>';
 
-        Object.entries(questionList).forEach((value) => {
-        //questionList.forEach((value, key) => {
+        questionList.forEach((value, key) => {
             let option = document.createElement('option'); //Creates a new element
             option.value = value;
             option.text = value;
             questionSelect.appendChild(option);
         });
-
-        //data[selectedValue].forEach(word => { //Goes through each question for the setting
-        //    let option = document.createElement('option'); //Creates a new element
-        //    option.value = word;
-        //    option.text = word;
-        //    questionSelect.appendChild(option); //Adds element to the questions dropdown
-        //});
     }
 
     function refreshAnswers() {
@@ -182,7 +176,7 @@
         const settingMap = all_data[selectedSetting]; //Gets the setting from the data
         const questionMap = settingMap[selectedQuestion]; //gets the question from the setting
 
-        answerDisplay.innerHTML = '<div class="answer-heading"><strong>Answer Text</strong></div><div class="answer-heading"><strong>Points and Explaination</strong></div>';
+        answerDisplay.innerHTML = '<div class="answer-heading"><strong>Answer Text</strong></div><div class="answer-heading"><strong>Points</strong></div><div class="answer-heading"><strong>Explaination</strong></div>';
         
         const fragment = document.createDocumentFragment();
         
@@ -191,8 +185,11 @@
             valueDiv.textContent = value;
             fragment.appendChild(valueDiv); //Add one element for the question text
             const keyDiv = document.createElement('div');
-            keyDiv.textContent = key;
+            keyDiv.textContent = key[0];
             fragment.appendChild(keyDiv); //Add another element for the point values and explaination
+            const keyDivTwo = document.createElement('div');
+            keyDivTwo.textContent = key[1];
+            fragment.appendChild(keyDivTwo);
         });
 
         answerDisplay.appendChild(fragment) //Add elements to the grid to display them

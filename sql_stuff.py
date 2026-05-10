@@ -44,7 +44,3 @@ def add_pts_ex():
                     cursor.execute(sql)
 
 
-def add_values():
-    settings_sql = '''INSERT INTO settings (setting_name, setting_desc) VALUES (), (), ();'''
-    questions_sql = '''INSERT INTO questions (question_text) VALUES (), ();'''
-    bridge_sql = '''INSERT INTO questions_bridge (setting_id, question_id) VALUES (), ();'''
