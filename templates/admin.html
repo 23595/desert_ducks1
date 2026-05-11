@@ -23,7 +23,7 @@
             padding-left: 15px;
             padding-right: 15px;
             padding-bottom: 5px;
-            width: 445px;
+            width: max-content;
             margin: auto;
             background-color: #d5d5ae;
             outline: 5px solid #aac48d;
@@ -54,13 +54,21 @@
         .answer-grid{
             display: grid;
             width: inherit;
-            grid-template-columns: min-content min-content auto;
+            grid-template-columns: auto auto auto;
             margin: 10px 0px;
-            outline: gray;
+            outline: 1px solid gray;
+        }
+        .answer-grid div{
+            padding: 10px;
+            border: 1px solid grey;
         }
         .answer-heading{
             padding: 5%;
             background-color: #aac48d;
+            border: 1px solid grey;
+        }
+        .grid-column-span-2{
+            grid-row: span 2;
         }
         form div {
             width: fit-content;
@@ -109,7 +117,7 @@
                 <input type="submit" value="Create User" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
             </form>
         </div>
-        <div class="admin_function">
+        <div class="admin_function" id="view_QnA">
             <h1>View questions and answers</h1> <!--Shows the answer options, point values, and explainations for a selected setting and question-->
             <form>
                 <label for="setting">Setting: </label>
@@ -126,7 +134,8 @@
             </form>
             <div id="answers" class="answer-grid"> <!--Grid showing answers once setting and question are selected-->
                 <div class="answer-heading"><strong>Answer Text</strong></div>
-                <div class="answer-heading"><strong>Points and Explaination</strong></div>
+                <div class="answer-heading"><strong>Points</strong></div>
+                <div class="answer-heading"><strong>Explaination</strong></div>
             </div>
         </div>
         <div class="admin_function">
@@ -158,7 +167,7 @@
 
         const answerDisplay = document.getElementById('answers');
         questionSelect.innerHTML = '<option hidden disables selected value></option>'; //Resets existing dropdown values
-        answerDisplay.innerHTML = '<div class="answer-heading"><strong>Answer Text</strong></div><div class="answer-heading"><strong>Points and Explaination</strong></div>';
+        answerDisplay.innerHTML = '<div class="answer-heading"><strong>Answer Text</strong></div><div class="answer-heading"><strong>Points</strong></div><div class="answer-heading"><strong>Explaination</strong></div>';
 
         questionList.forEach((value, key) => {
             let option = document.createElement('option'); //Creates a new element
@@ -177,7 +186,9 @@
         const questionMap = settingMap[selectedQuestion]; //gets the question from the setting
 
         answerDisplay.innerHTML = '<div class="answer-heading"><strong>Answer Text</strong></div><div class="answer-heading"><strong>Points</strong></div><div class="answer-heading"><strong>Explaination</strong></div>';
-        
+        const functionBox = document.getElementById('view_QnA');
+        functionBox.classList.add('grid-column-span-2');
+
         const fragment = document.createDocumentFragment();
         
         Object.entries(questionMap).forEach(([value, key]) => { //For every answer group for the question in the setting
