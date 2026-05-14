@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Newsreader">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=FascinateInline">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>Desert Ducks</title>
     <style>
@@ -17,8 +18,8 @@
 </head>
 <body>
     <div class="big_logo"><img src="/static/images/desert_ducks.png" alt="Desert Ducks"></div>
-    <div class="text_container"><h3 class="centre w3_newsreader">Different animals fit different environments. <br> Give your bird the adaptations that it needs to survive and thrive in an ecosystem! Will your fowl be the fittest? or will it end up as dead as a duck it the desert?</h3></div>
-    <div class="button centre" style="margin-top: 20px;"><a href="{{  url_for('setting_select')  }}" style="text-decoration: none;">Begin</a></div> <!--Directs to setting select page-->
+    <div class="text_container"><h3 class="centre w3_newsreader">Different animals fit different environments. <br> Give your bird the adaptations that it needs to survive and thrive in an ecosystem! Will your fowl be the fittest? or will it end up as dead as a duck in the desert?</h3></div>
+    <div class="button centre w3_fascinateInline" style="margin-top: 20px;"><a href="{{  url_for('setting_select')  }}" style="text-decoration: none;">Begin</a></div> <!--Directs to setting select page-->
     <div class="centre" style="margin-top: 10px;"><a href="{{ url_for('admin_login') }}">Admin Login</a></div> <!--Link to admin login-->
 </body>
 </html>

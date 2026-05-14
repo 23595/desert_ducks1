@@ -32,22 +32,26 @@ html, body{
   border-radius: 5px;
   padding: 5px;
   font-size: large;
+  box-shadow: 3px 3px 3px grey;
+  transform: translate(-3px,-3px);
 }
 .button:hover{
   background-color: #aac48d;
+  box-shadow: none;
+  transform: none;
 }
+
 .hide_link{
   color: white;
   text-decoration: none;
 }
-
 .centre{
   display: block;
   margin: auto;
   text-align: center;
 }
 
-.container {
+.settings_container {
   width: 100%;
   margin: auto;
   display: grid;
@@ -55,7 +59,7 @@ html, body{
   background-color: #CBEDAB;
   padding: 10px;
 }
-.container div {
+.settings_container div {
   background-color: #f1f1f1;
   border: 1px solid black;
   padding: 40px;
@@ -63,8 +67,10 @@ html, body{
   text-align: center;
 }
 
-.container div:hover{
+.setting_button:hover{
   background-color: #aac48d;
+  box-shadow: 0 0 10px 5px grey;
+  transform: scale(105%);
 }
 
 div.two_column_grid div:hover {
@@ -124,4 +130,45 @@ iframe{
   width: 100%;
   border-bottom: 2px solid black;
   box-sizing: border-box;
+}
+
+.question_box{
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 5px;
+  width:fit-content;
+  margin: auto;
+  background-color: #d5d5ae;
+  outline: 5px solid #aac48d;
+  margin-top: 5%;
+  display: block;
+  }
+.align_text{
+  text-align: left;
+  margin-left: 5%;
+  }
+.setting_box{
+  padding: 10px;
+  width: fit-content;
+  margin: auto;
+  background-color: #aac48d;
+  border-radius: 5px;
+  }
+h2{
+  text-align: center;
+}
+.continue{
+  width: fit-content;
+  margin-left: 40%;
+  background-color: #aac48d;
+}
+.continue :hover{
+  background-color: rgb(51, 88, 51);
+}
+
+input[type="radio"]{
+  display: none;
+}
+input[type="radio"]:checked{
+  display: block;
 }
