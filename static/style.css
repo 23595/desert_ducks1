@@ -2,6 +2,9 @@ html, body{
   height: 100%;
   margin: 0;
 }
+html{
+  background-color: #798B68;
+}
 
 .w3_newsreader{
     font-family: Newsreader;
@@ -77,7 +80,7 @@ div.two_column_grid div:hover {
   background-color: #777;
 }
 .left-column{
-  background-color: white;
+  background-color: #798B68;
   width: 50%;
   height: 100%;
   display: inline-block;
@@ -171,4 +174,21 @@ input[type="radio"]{
 }
 input[type="radio"]:checked{
   display: block;
+}
+
+input[type="submit"]{
+  width: fit-content;
+  margin-left: 25%;
+  background-color: #aac48d;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: large;
+  box-shadow: 3px 3px 3px grey;
+  transform: translate(-3px,-3px);
+}
+input[type="submit"]:hover{
+  background-color: rgb(51, 88, 51);
+  box-shadow: none;
+  transform: none;
 }

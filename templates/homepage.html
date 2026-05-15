@@ -14,6 +14,13 @@
             margin: auto;
             text-align: center;
         }
+        .desert_bottom{
+            width: 100%;
+            height: 50px;
+            background-image: url(/static/images/desert.png);
+            background-repeat: repeat;
+            background-size: contain;
+        }
     </style>
 </head>
 <body>
@@ -21,5 +28,6 @@
     <div class="text_container"><h3 class="centre w3_newsreader">Different animals fit different environments. <br> Give your bird the adaptations that it needs to survive and thrive in an ecosystem! Will your fowl be the fittest? or will it end up as dead as a duck in the desert?</h3></div>
     <div class="button centre w3_fascinateInline" style="margin-top: 20px;"><a href="{{  url_for('setting_select')  }}" style="text-decoration: none;">Begin</a></div> <!--Directs to setting select page-->
     <div class="centre" style="margin-top: 10px;"><a href="{{ url_for('admin_login') }}">Admin Login</a></div> <!--Link to admin login-->
+    <div class="desert_bottom"></div>
 </body>
 </html>

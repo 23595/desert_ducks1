@@ -19,7 +19,6 @@
             width:fit-content;
             margin: auto;
             background-color: #d5d5ae;
-            outline: 5px solid #aac48d;
             margin-top: 10%;
         }
         p{
@@ -29,18 +28,10 @@
         input{
             margin-bottom: 12px;
         }
-        .login{
-            width: fit-content;
-            margin-left: 40%;
-            background-color: #aac48d;
-        }
-        .login :hover{
-            background-color: rgb(51, 88, 51);
-        }
     </style>
 </head>
 <body>
-    <div>
+    <div style="outline: 5px solid #aac48d;">
         <h1>Administrator Login</h1>
         <form action="{{ url_for('login') }}" method="POST"> 
             <label for="username">Username: </label>
