@@ -3,7 +3,7 @@ html, body{
   margin: 0;
 }
 html{
-  background-color: #798B68;
+  background-color: #C5D7D8;
 }
 
 .w3_newsreader{
@@ -17,6 +17,7 @@ html{
   margin-top: 20px;
   margin-bottom: 20px;
   text-align: center;
+  transform: translate(0,50);
 }
 .small_logo{
   width: 15%;
@@ -80,7 +81,7 @@ div.two_column_grid div:hover {
   background-color: #777;
 }
 .left-column{
-  background-color: #798B68;
+  background-color: #C5D7D8;
   width: 50%;
   height: 100%;
   display: inline-block;
