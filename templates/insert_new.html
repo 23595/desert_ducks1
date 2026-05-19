@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Newsreader">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>Create New</title>
+</head>
+<body>
+    <form action="{{ url_for('create_setting') }}" method="POST">
+        <div>
+            <label for="setting_name">Name: </label>
+            <input type="text" id="setting_name" name="setting_name" required maxlength="15"><br> <!--Input the admin's username - input required-->
+        </div>
+        <div>
+            <label for="setting_desc">Description: </label>
+            <textarea id="setting_desc" name="setting_desc" required maxlength="100" rows="3" cols="50"></textarea><br><!--Input the new admin's password - input required-->
+        </div>
+        <input type="submit" value="Add Setting" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
+    </form>
+    <h1>{{error_message}}</h1>
+</body>
+</html>

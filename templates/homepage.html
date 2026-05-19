@@ -29,6 +29,12 @@
             top: 150px;
             right: 200px;
         }
+        .cloud{
+            width: 20%;
+            position: fixed;
+            top: 200px;
+            left: 150px;
+        }
         @keyframes bounceAnimation {
             0%, 100% { transform: translateY(20px); }
             50% { transform: translateY(0); }
@@ -50,5 +56,6 @@
     <div class="centre" style="margin-top: 10px;"><a href="{{ url_for('admin_login') }}">Admin Login</a></div> <!--Link to admin login-->
     <div class="desert_bottom"></div>
     <img src="/static/images/bird.png" alt="flying bird" class="bird">
+    <img src="/static/images/cloud.png" alt="cloud" class="cloud">
 </body>
 </html>

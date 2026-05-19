@@ -11,7 +11,6 @@
         body{
             margin: 0;
             height: max-content;
-            background-color: #798B68;
         }
         .grid{
             display: grid;
@@ -30,6 +29,7 @@
             outline: 5px solid #aac48d;
             margin-top: 45px;
             border-radius: 15px;
+            box-shadow: 10px 10px 5px grey;
         }
         p{
             text-align: center;
@@ -58,16 +58,17 @@
             width: inherit;
             grid-template-columns: auto auto auto;
             margin: 10px 0px;
-            outline: 1px solid gray;
-        }
-        .answer-grid div{
-            padding: 10px;
-            border: 1px solid grey;
+            border-radius: 10px;
         }
         .answer-heading{
             padding: 5%;
             background-color: #aac48d;
             border: 1px solid grey;
+        }
+        .answer-grid div{
+            padding: 10px;
+            border: 1px solid grey;
+            border-radius: 5px;
         }
         .grid-column-span-2{
             grid-row: span 2;
@@ -144,11 +145,16 @@
             <h1>Remove admin</h1> <!--Allows user to remove an admin from the database-->
             <form action="{{ url_for('remove_user') }}" method="POST">
                 <div>
-                <label for="username">Username to delete: </label>
-                <input type="text" id="username" name="username" required maxlength="15"><br> <!--Input the admin's username - input required-->
+                    <label for="username">Username to delete: </label>
+                    <input type="text" id="username" name="username" required maxlength="15"><br> <!--Input the admin's username - input required-->
                 </div>
                 <input type="submit" value="Remove User" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
             </form>
+        </div>
+        <div class="admin_function">
+            <div class="button centre" style="margin-top: 20px; background-color: #aac48d; grid-column: 2 / 2;">
+                <a href="{{  url_for('insert_new')  }}" style="text-decoration: none;">Setting Creator</a>
+            </div>
         </div>
         <div> 
             <div class="button centre" style="margin-top: 20px; background-color: #aac48d; grid-column: 2 / 2;">

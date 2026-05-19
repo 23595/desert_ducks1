@@ -38,7 +38,7 @@
             <input type="text" id="username" name="username" required maxlength="15"><br> <!--Username input-->
             <label for="password">Password: </label>
             <input type="password" id="password" name="password" required maxlength="15"><br> <!--Password input - characters not visible-->
-            <input type="submit" value="Login" class="login"> <!--Runs the login flask route with inputed username and password-->
+            <input type="submit" value="Login" class="button" style="margin-left: 40%;"> <!--Runs the login flask route with inputed username and password-->
         </form>
         <p class="error_message">{{message}}</p> <!--If login is attempted and fails, displays error message from flask-->
         <div class="button centre" style="margin-top: 15px;"><a href="{{  url_for('home')  }}" style="text-decoration: none;">Back</a></div>

@@ -77,6 +77,10 @@ def home():
     # Home page
     return render_template("homepage.html")
 
+@app.route('/insert_new')
+def insert_new():
+    # Home page
+    return render_template("insert_new.html")
 
 @app.route('/admin_login')
 def admin_login():
@@ -173,6 +177,28 @@ def questions(id, on_question):  # id is the id of the setting. on_question is t
         setting_name = query_db(sql)
         return render_template("scoring.html", answers_list=answers_list, total=total, setting_name=setting_name[0][0])
 
+@app.route('/create_setting', methods=['GET', 'POST'])
+def create_setting():
+    error_message = ''
+    if request.method == 'POST':
+        setting_name = request.form['setting_name']
+        setting_desc = request.form['setting_desc']
+        # Find existing setting names to prevent overlap
+        sql = "SELECT setting_name FROM settings WHERE setting_name = '" + setting_name + "';"
+        overlap = query_db(sql)
+        if overlap:
+            error_message = 'Setting by that name already exists.'
+            # Returns an error message if the setting already exists
+        elif len(setting_name) < 4:
+            error_message = 'Setting name must be at least 4 characters'
+            # Returns an error message if the setting_name is too short
+        else:
+            with sqlite3.connect(DATABASE) as db:
+                cursor = db.cursor()
+                sql = """INSERT INTO settings (setting_name, setting_desc)
+                VALUES ('""" + setting_name + "', '" + setting_desc + "');"
+                cursor.execute(sql)
+    return render_template("insert_new.html", error_message=error_message)
 
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
