@@ -79,8 +79,9 @@ def home():
 
 @app.route('/insert_new')
 def insert_new():
+    data_dict, extra = get_admin_values()
     # Home page
-    return render_template("insert_new.html")
+    return render_template("insert_new.html", data_dict=data_dict)
 
 @app.route('/admin_login')
 def admin_login():
@@ -198,7 +199,31 @@ def create_setting():
                 sql = """INSERT INTO settings (setting_name, setting_desc)
                 VALUES ('""" + setting_name + "', '" + setting_desc + "');"
                 cursor.execute(sql)
-    return render_template("insert_new.html", error_message=error_message)
+    data_dict, extra = get_admin_values()
+    return render_template("insert_new.html", error_message=error_message, data_dict=data_dict)
+
+@app.route('/create_question', methods=['GET', 'POST'])
+def create_question():
+    error_message = ''
+    if request.method == 'POST':
+        question_name = request.form['question_name']
+        # Find existing setting names to prevent overlap
+        sql = "SELECT question_text FROM questions WHERE question_text = '" + question_name + "';"
+        overlap = query_db(sql)
+        if overlap:
+            error_message = 'Question already exists.'
+            # Returns an error message if the question already exists
+        elif len(question_name) < 10:
+            error_message = 'Question must be at least 10 characters'
+            # Returns an error message if the question_name is too short
+        else:
+            with sqlite3.connect(DATABASE) as db:
+                cursor = db.cursor()
+                sql = """INSERT INTO questions (question_text)
+                VALUES ('""" + question_name + "');"
+                cursor.execute(sql)
+    data_dict, extra = get_admin_values()
+    return render_template("insert_new.html", error_message=error_message, data_dict=data_dict)
 
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():

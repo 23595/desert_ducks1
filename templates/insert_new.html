@@ -21,5 +21,46 @@
         <input type="submit" value="Add Setting" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
     </form>
     <h1>{{error_message}}</h1>
+    <form action="{{ url_for('create_question') }}" method="POST">
+        <div>
+            <label for="question_text">Name: </label>
+            <input type="text" id="question_text" name="question_text" required maxlength="50"><br> <!--Input the admin's username - input required-->
+        </div>
+        <input type="submit" value="Add Question" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
+    </form>
+    <form>
+        <label for="setting">View Questions for setting: </label>
+        <select id="setting" name="setting" onchange="refreshQuestions()"> <!--Dropdown menu to select setting-->
+            <option hidden disabled selected value></option>
+            {% for name in data_dict %}
+                <option value="{{name}}">{{ name.title() }}</option>
+            {% endfor %}
+        </select>
+        <label for="question">Questions: </label>
+        <div id="question"> <!--List of questions for the setting-->
+            <div>Select a Setting</div> <!--Only appears once setting is selected-->
+        </div>
+    </form>
+
+    <script>
+        const data = {{ data_dict|safe }};
+
+        function refreshQuestions() { //Runs when selected setting is changed. Displays questions corresponding to that setting
+            const settingSelect = document.getElementById('setting');
+            const questionDisplay = document.getElementById('question');
+            const selectedValue = settingSelect.value;
+            const questionList = data[selectedValue];
+            console.log(questionList)
+
+            questionDisplay.innerHTML = ''; //Resets existing dropdown values
+
+            questionList.forEach((value) => {
+                let option = document.createElement('div'); //Creates a new element
+                option.value = value;
+                option.text = value;
+                questionDisplay.appendChild(option);
+            });
+        }
+    </script>
 </body>
 </html>
