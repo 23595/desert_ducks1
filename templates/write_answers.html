@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Newsreader">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>Write Answers</title>
+</head>
+<body>
+    <h1>{{error_message}}</h1>
+    <h3>Linking '{{setting}}' and '{{question}}'</h3>
+    <form action="{{ url_for('create_questin') }}" method="POST">
+        <div>
+            <label for="question_name">New Question Name: </label>
+            <input type="text" id="question_name" name="question_name" required maxlength="50"><br> <!--Input the admin's username - input required-->
+        </div>
+        <input type="submit" value="Add Question" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
+    </form>
+</body>
+</html>

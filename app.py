@@ -58,6 +58,19 @@ def get_admin_values():
     return data_dict, everything_dict
 
 
+def get_settings_questions():
+    questions1 = []
+    settings1 = []
+    sql = "SELECT question_text FROM questions;"
+    questions = query_db(sql)
+    for question in questions:
+        questions1.append(question[0])
+    sql = "SELECT setting_name FROM settings;"
+    settings = query_db(sql)
+    for setting in settings:
+        settings1.append(setting[0])
+    return questions1, settings1
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -79,9 +92,9 @@ def home():
 
 @app.route('/insert_new')
 def insert_new():
-    data_dict, extra = get_admin_values()
     # Home page
-    return render_template("insert_new.html", data_dict=data_dict)
+    questions, settings = get_settings_questions()
+    return render_template("insert_new.html", questions=questions, settings=settings)
 
 @app.route('/admin_login')
 def admin_login():
@@ -199,8 +212,8 @@ def create_setting():
                 sql = """INSERT INTO settings (setting_name, setting_desc)
                 VALUES ('""" + setting_name + "', '" + setting_desc + "');"
                 cursor.execute(sql)
-    data_dict, extra = get_admin_values()
-    return render_template("insert_new.html", error_message=error_message, data_dict=data_dict)
+    questions, settings = get_settings_questions()
+    return render_template("insert_new.html", error_message=error_message, questions=questions, settings=settings)
 
 @app.route('/create_question', methods=['GET', 'POST'])
 def create_question():
@@ -213,8 +226,8 @@ def create_question():
         if overlap:
             error_message = 'Question already exists.'
             # Returns an error message if the question already exists
-        elif len(question_name) < 10:
-            error_message = 'Question must be at least 10 characters'
+        elif len(question_name) < 5:
+            error_message = 'Question must be at least 5 characters'
             # Returns an error message if the question_name is too short
         else:
             with sqlite3.connect(DATABASE) as db:
@@ -222,8 +235,32 @@ def create_question():
                 sql = """INSERT INTO questions (question_text)
                 VALUES ('""" + question_name + "');"
                 cursor.execute(sql)
-    data_dict, extra = get_admin_values()
-    return render_template("insert_new.html", error_message=error_message, data_dict=data_dict)
+            error_message = f"Successfully created question '{question_name}'"
+    questions, settings = get_settings_questions()
+    return render_template("insert_new.html", error_message=error_message, questions=questions, settings=settings)
+
+@app.route('/link_values', methods=['GET', 'POST'])
+def link_values():
+    error_message = ''
+    questions, settings = get_settings_questions()
+    if request.method == 'POST':
+        setting = request.form['setting']
+        question = request.form['question']
+        # Check if there is an existing connection
+        sql = "SELECT question_id FROM questions WHERE question_text = '" + question + "';"
+        questionid = query_db(sql)
+        sql = "SELECT setting_id FROM settings WHERE setting_name = '" + setting + "';"
+        settingid = query_db(sql)
+        sql = f"SELECT * FROM questions_bridge WHERE setting_id = {settingid[0][0]} AND question_id = {questionid[0][0]};"
+        exists = query_db(sql)
+        if exists:
+            error_message = 'This link already exists'
+            # Returns an error message if the link already exists
+            return render_template("insert_new.html", error_message=error_message, questions=questions, settings=settings)
+        else:
+            return render_template('write_answers.html', setting=setting, question=question)
+    
+
 
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
