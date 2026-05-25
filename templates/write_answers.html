@@ -11,12 +11,32 @@
 <body>
     <h1>{{error_message}}</h1>
     <h3>Linking '{{setting}}' and '{{question}}'</h3>
-    <form action="{{ url_for('create_questin') }}" method="POST">
-        <div>
-            <label for="question_name">New Question Name: </label>
-            <input type="text" id="question_name" name="question_name" required maxlength="50"><br> <!--Input the admin's username - input required-->
+    <form method="POST">
+        <div id="answer_options">
+            <div>
+                <label for="answer_option">Answer Option: </label>
+                <input type="text" id="answer_option" name="answer_option" required maxlength="20"><br> <!--Input the admin's username - input required-->
+                <label for="answer_points">Answer Points: </label>
+                <input type="number" id="answer_points" name="answer_points" required max="30" min="-30"><br> <!--Input the admin's username - input required-->
+                <label for="answer_explain">Answer Explaination: </label>
+                <input type="text" id="answer_explain" name="answer_explain" required maxlength="50"><br> <!--Input the admin's username - input required-->
+            </div>
         </div>
-        <input type="submit" value="Add Question" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
+        <button onclick="addOption" style="background-color: aquamarine;">
+            Add New Option
+        </button>
+        <input type="submit" value="Complete" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
     </form>
 </body>
+<script>
+    function addOption() { //Runs when selected setting is changed. Displays questions corresponding to that setting
+        const optionList = document.getElementById('answer_options');
+        console.log(optionList)
+
+        const existingContent = optionList.innerHTML
+
+        optionList.innerHTML = existingContent + '<div><label for="answer_option">Answer Option: </label><input type="text" id="answer_option" name="answer_option" required maxlength="20"><br><label for="answer_points">Answer Points: </label><input type="number" id="answer_points" name="answer_points" required max="30" min="-30"><br><label for="answer_explain">Answer Explaination: </label><input type="text" id="answer_explain" name="answer_explain" required maxlength="50"><br></div>'
+    };
+
+</script>
 </html>
