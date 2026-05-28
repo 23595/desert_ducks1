@@ -260,7 +260,13 @@ def link_values():
         else:
             return render_template('write_answers.html', setting=setting, question=question)
     
-
+@app.route('/add_answer_options', methods=['GET', 'POST'])
+def add_answer_options():
+    error_message = ''
+    if request.method == 'POST':
+        
+        x = request.form['setting']
+        question = request.form['question']
 
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
