@@ -11,7 +11,11 @@
 <body>
     <h1>{{error_message}}</h1>
     <h3>Linking '{{setting}}' and '{{question}}'</h3>
-    <form method="POST" action="{{ url_for('link_values') }}">
+    <form method="POST" action="{{ url_for('add_answer_options') }}">
+        <div style="display: none;">
+            <input type="hidden" id="setting" value="{{setting}}">
+            <input type="hidden" id="question" value="{{question}}">
+        </div>
         <div id="answer_options">
             <div>
                 <label for="answer_option">Answer Option: </label>
@@ -21,7 +25,7 @@
                 <label for="answer_explain">Answer Explaination: </label>
                 <input type="text" id="explain_1" name="answer_explain" required maxlength="50"><br> <!--Input the admin's username - input required-->
             </div>
-        </div>        
+        </div>
         <input type="submit" value="Complete" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
     </form>
     <button onclick="addOption()" style="background-color: aquamarine;">

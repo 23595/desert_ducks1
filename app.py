@@ -264,9 +264,41 @@ def link_values():
 def add_answer_options():
     error_message = ''
     if request.method == 'POST':
-        
-        x = request.form['setting']
-        question = request.form['question']
+        setting = request.form['setting'] # Get the name of the setting to link
+        question = request.form['question'] # Get the name of the question to link
+        option_list = []  # List of answer options
+        points_list = []  # List of point values
+        explain_list = []  # List of explainations for answers
+        option_number = 1  # Start at the first value
+        while True:
+            try:
+                ans_option = request.form['option_' + str(option_number)]  # get the name, points, and explaination for the first option
+                ans_points = request.form['points_' + str(option_number)]
+                ans_explain = request.form['explain_' + str(option_number)]
+                option_list.append(ans_option)
+                points_list.append(ans_points)
+                explain_list.append(ans_explain)
+                option_number += 1
+            except:
+                break
+        sql = '''SELECT setting_id from settings WHERE setting_name = "''' + setting + '";'
+        setting_id = query_db(sql)
+        sql = '''SELECT question_id from questions WHERE question_text = "''' + question + '";'
+        question_id = query_db(sql)
+        sql = '''INSERT INTO questions_bridge (setting_id, question_id)
+        VALUES (''' + setting_id + ", " + question_id + ");"
+        with sqlite3.connect(DATABASE) as db:
+                cursor = db.cursor()
+                # cursor.execute(sql)
+        # Connected the setting and question
+        for number in range(len(option_list)):
+            sql = '''INSERT INTO answer_options (question_id, answer_text) VALUES (''' + question_id + ", " + option_list[number] + ");"
+            sql = '''SELECT option_id from answer_options WHERE answer_text = "''' + option_list[number] + '";'
+            option_id = query_db(sql)
+            sql = f'''INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
+            VALUES ({setting_id}, {question_id}, {option_id}, {points_list[number]}, {explain_list[number]});'''
+
+                
 
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
