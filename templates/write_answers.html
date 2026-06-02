@@ -13,17 +13,21 @@
     <h3>Linking '{{setting}}' and '{{question}}'</h3>
     <form method="POST" action="{{ url_for('add_answer_options') }}">
         <div style="display: none;">
-            <input type="hidden" id="setting" value="{{setting}}">
-            <input type="hidden" id="question" value="{{question}}">
+            <select name="setting" id="setting" style="display: none;">
+                <option selected>{{setting}}</option>
+            </select>
+            <select name="question" id="question" style="display: none;">
+                <option selected>{{question}}</option>
+            </select>
         </div>
         <div id="answer_options">
             <div>
                 <label for="answer_option">Answer Option: </label>
-                <input type="text" id="option_1" name="answer_option" required maxlength="20"><br> <!--Input the admin's username - input required-->
+                <input type="text" id="option_1" name="answer_option" required maxlength="20"><br>
                 <label for="answer_points">Answer Points: </label>
-                <input type="number" id="points_1" name="answer_points" required max="30" min="-30"><br> <!--Input the admin's username - input required-->
+                <input type="number" id="points_1" name="answer_points" required max="30" min="-30"><br> 
                 <label for="answer_explain">Answer Explaination: </label>
-                <input type="text" id="explain_1" name="answer_explain" required maxlength="50"><br> <!--Input the admin's username - input required-->
+                <input type="text" id="explain_1" name="answer_explain" required maxlength="50"><br>
             </div>
         </div>
         <input type="submit" value="Complete" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->

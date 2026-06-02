@@ -282,21 +282,28 @@ def add_answer_options():
             except:
                 break
         sql = '''SELECT setting_id from settings WHERE setting_name = "''' + setting + '";'
-        setting_id = query_db(sql)
+        setting_id = str(query_db(sql)[0][0])
         sql = '''SELECT question_id from questions WHERE question_text = "''' + question + '";'
-        question_id = query_db(sql)
+        question_id = str(query_db(sql)[0][0])
         sql = '''INSERT INTO questions_bridge (setting_id, question_id)
-        VALUES (''' + setting_id + ", " + question_id + ");"
+        VALUES (''' + setting_id + ", " + question_id + ");" # Add to questions_bridge
         with sqlite3.connect(DATABASE) as db:
                 cursor = db.cursor()
-                # cursor.execute(sql)
+                cursor.execute(sql)
         # Connected the setting and question
         for number in range(len(option_list)):
-            sql = '''INSERT INTO answer_options (question_id, answer_text) VALUES (''' + question_id + ", " + option_list[number] + ");"
-            sql = '''SELECT option_id from answer_options WHERE answer_text = "''' + option_list[number] + '";'
-            option_id = query_db(sql)
+            sql = '''INSERT INTO answer_options (question_id, answer_text) VALUES (''' + question_id + ", " + option_list[number] + ");" # Add to answer_options
+            with sqlite3.connect(DATABASE) as db:
+                cursor = db.cursor()
+                cursor.execute(sql)
+            sql = '''SELECT option_id from answer_options WHERE answer_text = "''' + option_list[number] + '";' # Get option id
+            option_id = query_db(sql)[0][0]
             sql = f'''INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
-            VALUES ({setting_id}, {question_id}, {option_id}, {points_list[number]}, {explain_list[number]});'''
+            VALUES ({setting_id}, {question_id}, {option_id}, {points_list[number]}, {explain_list[number]});''' # Add to game_logic
+        questions, settings = get_settings_questions()
+        error_message = 'probably success'
+        return render_template("insert_new.html", error_message=error_message, settings=settings, questions=questions)
+    
 
                 
 
