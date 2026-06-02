@@ -279,7 +279,8 @@ def add_answer_options():
                 points_list.append(ans_points)
                 explain_list.append(ans_explain)
                 option_number += 1
-            except:
+                error_message += 'option recorded, '
+            except Exception:
                 break
         sql = '''SELECT setting_id from settings WHERE setting_name = "''' + setting + '";'
         setting_id = str(query_db(sql)[0][0])
@@ -288,20 +289,27 @@ def add_answer_options():
         sql = '''INSERT INTO questions_bridge (setting_id, question_id)
         VALUES (''' + setting_id + ", " + question_id + ");" # Add to questions_bridge
         with sqlite3.connect(DATABASE) as db:
-                cursor = db.cursor()
-                cursor.execute(sql)
+            cursor = db.cursor()
+            cursor.execute(sql)
+            error_message += f'Added settingid {setting_id} and questionid {question_id} to questions_bridge, '
         # Connected the setting and question
         for number in range(len(option_list)):
-            sql = '''INSERT INTO answer_options (question_id, answer_text) VALUES (''' + question_id + ", " + option_list[number] + ");" # Add to answer_options
+            error_message += 'loop start, '
+            sql = '''INSERT INTO answer_options (question_id, answer_text) VALUES (''' + question_id + ", " + option_list[number] + ");"  # Add to answer_options
             with sqlite3.connect(DATABASE) as db:
                 cursor = db.cursor()
                 cursor.execute(sql)
-            sql = '''SELECT option_id from answer_options WHERE answer_text = "''' + option_list[number] + '";' # Get option id
+                error_message += f'Added answer option {option_list[number]}, '
+            sql = '''SELECT option_id from answer_options WHERE answer_text = "''' + option_list[number] + '";'  # Get option id
             option_id = query_db(sql)[0][0]
             sql = f'''INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
-            VALUES ({setting_id}, {question_id}, {option_id}, {points_list[number]}, {explain_list[number]});''' # Add to game_logic
+            VALUES ({setting_id}, {question_id}, {option_id}, {points_list[number]}, {explain_list[number]});'''  # Add to game_logic
+            with sqlite3.connect(DATABASE) as db:
+                cursor = db.cursor()
+                cursor.execute(sql)
+            error_message += f'Added to game logic {option_list[number]}, '
         questions, settings = get_settings_questions()
-        error_message = 'probably success'
+        # error_message = 'probably success'
         return render_template("insert_new.html", error_message=error_message, settings=settings, questions=questions)
     
 
