@@ -90,12 +90,6 @@ def home():
     # Home page
     return render_template("homepage.html")
 
-@app.route('/insert_new')
-def insert_new():
-    # Home page
-    questions, settings = get_settings_questions()
-    return render_template("insert_new.html", questions=questions, settings=settings)
-
 @app.route('/admin_login')
 def admin_login():
     return render_template("login.html")
@@ -238,81 +232,6 @@ def create_question():
             error_message = f"Successfully created question '{question_name}'"
     questions, settings = get_settings_questions()
     return render_template("insert_new.html", error_message=error_message, questions=questions, settings=settings)
-
-@app.route('/link_values', methods=['GET', 'POST'])
-def link_values():
-    error_message = ''
-    questions, settings = get_settings_questions()
-    if request.method == 'POST':
-        setting = request.form['setting']
-        question = request.form['question']
-        # Check if there is an existing connection
-        sql = "SELECT question_id FROM questions WHERE question_text = '" + question + "';"
-        questionid = query_db(sql)
-        sql = "SELECT setting_id FROM settings WHERE setting_name = '" + setting + "';"
-        settingid = query_db(sql)
-        sql = f"SELECT * FROM questions_bridge WHERE setting_id = {settingid[0][0]} AND question_id = {questionid[0][0]};"
-        exists = query_db(sql)
-        if exists:
-            error_message = 'This link already exists'
-            # Returns an error message if the link already exists
-            return render_template("insert_new.html", error_message=error_message, questions=questions, settings=settings)
-        else:
-            return render_template('write_answers.html', setting=setting, question=question)
-    
-@app.route('/add_answer_options', methods=['GET', 'POST'])
-def add_answer_options():
-    error_message = ''
-    if request.method == 'POST':
-        setting = request.form['setting'] # Get the name of the setting to link
-        question = request.form['question'] # Get the name of the question to link
-        option_list = []  # List of answer options
-        points_list = []  # List of point values
-        explain_list = []  # List of explainations for answers
-        option_number = 1  # Start at the first value
-        while True:
-            try:
-                ans_option = request.form['option_' + str(option_number)]  # get the name, points, and explaination for the first option
-                ans_points = request.form['points_' + str(option_number)]
-                ans_explain = request.form['explain_' + str(option_number)]
-                option_list.append(ans_option)
-                points_list.append(ans_points)
-                explain_list.append(ans_explain)
-                option_number += 1
-                error_message += 'option recorded, '
-            except Exception:
-                break
-        sql = '''SELECT setting_id from settings WHERE setting_name = "''' + setting + '";'
-        setting_id = str(query_db(sql)[0][0])
-        sql = '''SELECT question_id from questions WHERE question_text = "''' + question + '";'
-        question_id = str(query_db(sql)[0][0])
-        sql = '''INSERT INTO questions_bridge (setting_id, question_id)
-        VALUES (''' + setting_id + ", " + question_id + ");" # Add to questions_bridge
-        with sqlite3.connect(DATABASE) as db:
-            cursor = db.cursor()
-            cursor.execute(sql)
-            error_message += f'Added settingid {setting_id} and questionid {question_id} to questions_bridge, '
-        # Connected the setting and question
-        for number in range(len(option_list)):
-            error_message += 'loop start, '
-            sql = '''INSERT INTO answer_options (question_id, answer_text) VALUES (''' + question_id + ", " + option_list[number] + ");"  # Add to answer_options
-            with sqlite3.connect(DATABASE) as db:
-                cursor = db.cursor()
-                cursor.execute(sql)
-                error_message += f'Added answer option {option_list[number]}, '
-            sql = '''SELECT option_id from answer_options WHERE answer_text = "''' + option_list[number] + '";'  # Get option id
-            option_id = query_db(sql)[0][0]
-            sql = f'''INSERT INTO game_logic (setting_id, question_id, option_id, ans_points, ans_explain)
-            VALUES ({setting_id}, {question_id}, {option_id}, {points_list[number]}, {explain_list[number]});'''  # Add to game_logic
-            with sqlite3.connect(DATABASE) as db:
-                cursor = db.cursor()
-                cursor.execute(sql)
-            error_message += f'Added to game logic {option_list[number]}, '
-        questions, settings = get_settings_questions()
-        # error_message = 'probably success'
-        return render_template("insert_new.html", error_message=error_message, settings=settings, questions=questions)
-    
-
                 
 
 @app.route('/new_user', methods=['GET', 'POST'])

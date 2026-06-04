@@ -29,17 +29,49 @@
             top: 150px;
             right: 200px;
         }
-        @keyframes driftAnimation {
-            0% { transform: translateX(-50px); }
-            100% { transform: translateX(150px); }
+        @keyframes slideLeftAnimation {
+          0% { transform: translateX(-100%);}
+         100% { transform: translateX(100vw);}
+    }
+        .cloud {
+         position: fixed;
+         animation-name: slideLeftAnimation;
+         animation-duration: 10s;
+         animation-timing-function: linear;
+         animation-iteration-count: infinite;
+         animation-direction: normal;
+         animation-fill-mode: none;
         }
-        .cloud{
+        .cloud1{
             width: 20%;
-            position: fixed;
-            top: 200px;
-            left: 150px;
-            animation: driftAnimation 30s ease none infinite normal both;
+            top: 7.5vh;
+            animation-delay: 0.1s;
         }
+        .cloud2{
+            width: 10%;
+            transform: translateX(-100%);
+            top: 25vh;
+            animation-delay: 3s;
+        }
+        .cloud3{
+            width: 15%;
+            transform: translateX(-100%);
+            top: 50vh;
+            animation-delay: 6s;
+        }
+        .cloud4{
+            width: 17%;
+            transform: translateX(-100%);
+            top: 26vh;
+            animation-delay: 8s;
+        }
+        .cloud5{
+            width: 10%;
+            transform: translateX(-100%);
+            top: 55vh;
+            animation-delay: 12s;
+        }
+
         @keyframes bounceAnimation {
             0%, 100% { transform: translateY(20px); }
             50% { transform: translateY(0); }
@@ -55,12 +87,16 @@
     </style>
 </head>
 <body>
+    <img src="/static/images/bird.png" alt="flying bird" class="bird">
+    <img src="/static/images/cloud.png" alt="cloud" class="cloud cloud1">
+    <img src="/static/images/cloud.png" alt="cloud" class="cloud cloud2">
+    <img src="/static/images/cloud.png" alt="cloud" class="cloud cloud3">
+    <img src="/static/images/cloud.png" alt="cloud" class="cloud cloud4">
+    <img src="/static/images/cloud.png" alt="cloud" class="cloud cloud5">
     <div class="big_logo floating"><img src="/static/images/desert_ducks.png" alt="Desert Ducks"></div>
     <div class="text_container"><h3 class="centre w3_newsreader">Different animals fit different environments. <br> Give your bird the adaptations that it needs to survive and thrive in an ecosystem! Will your fowl be the fittest? Or will it end up as dead as a duck in the desert?</h3></div>
     <div class="button centre w3_fascinateInline" style="margin-top: 20px;"><a href="{{  url_for('setting_select')  }}" style="text-decoration: none;">Begin</a></div> <!--Directs to setting select page-->
     <div class="centre" style="margin-top: 10px;"><a href="{{ url_for('admin_login') }}">Admin Login</a></div> <!--Link to admin login-->
     <div class="desert_bottom"></div>
-    <img src="/static/images/bird.png" alt="flying bird" class="bird">
-    <img src="/static/images/cloud.png" alt="cloud" class="cloud">
 </body>
 </html>

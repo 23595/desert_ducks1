@@ -121,7 +121,7 @@
             </form>
         </div>
         <div class="admin_function" id="view_QnA">
-            <h1>View questions and answers</h1> <!--Shows the answer options, point values, and explainations for a selected setting and question-->
+            <h1>View Answers</h1> <!--Shows the answer options, point values, and explainations for a selected setting and question-->
             <form>
                 <label for="setting">Setting: </label>
                 <select id="setting" name="setting" onchange="refreshQuestions()"> <!--Dropdown menu to select setting-->
@@ -150,11 +150,6 @@
                 </div>
                 <input type="submit" value="Remove User" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
             </form>
-        </div>
-        <div class="admin_function">
-            <div class="button centre" style="margin-top: 20px; background-color: #aac48d; grid-column: 2 / 2;">
-                <a href="{{  url_for('insert_new')  }}" style="text-decoration: none;">Add New Values</a>
-            </div>
         </div>
         <div> 
             <div class="button centre" style="margin-top: 20px; background-color: #aac48d; grid-column: 2 / 2;">
