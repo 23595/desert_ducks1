@@ -14,10 +14,11 @@
         }
         .grid{
             display: grid;
-            width: 60%;
+            width: 60vw;
             margin: auto;
+            margin-top: 15vh;
             grid-template-columns: 1fr 1fr;
-            gap: 2%;
+            gap: 10px;
         }
         .admin_function{
             padding-left: 15px;
@@ -27,7 +28,6 @@
             margin: auto;
             background-color: #d5d5ae;
             outline: 5px solid #aac48d;
-            margin-top: 45px;
             border-radius: 15px;
             box-shadow: 10px 10px 5px grey;
         }
@@ -78,7 +78,7 @@
             margin: auto;
         }
         .error_message{
-            width: 90%;
+            width: 90vh;
             background-color: #AC6060;
             color: white;
             text-align: center;
@@ -151,10 +151,10 @@
                 <input type="submit" value="Remove User" class="submit"> <!--Submit button - runs new_user flask route and reloads page-->
             </form>
         </div>
-        <div> 
-            <div class="button centre" style="margin-top: 20px; background-color: #aac48d; grid-column: 2 / 2;">
-                <a href="{{  url_for('home')  }}" style="text-decoration: none;">Return to Home</a>
-            </div>
+    </div>
+    <div> 
+        <div class="button centre" style="margin-top: 10vh; background-color: #aac48d;">
+            <a href="{{  url_for('home')  }}" style="text-decoration: none;">Return to Home</a>
         </div>
     </div>
 <script>
