@@ -40,7 +40,9 @@
             <input type="password" id="password" name="password" required maxlength="15"><br> <!--Password input - characters not visible-->
             <input type="submit" value="Login" class="button" style="margin-left: 40%;"> <!--Runs the login flask route with inputed username and password-->
         </form>
-        <p class="error_message">{{message}}</p> <!--If login is attempted and fails, displays error message from flask-->
+        {% if message %}
+        <p class="error_message" style="width: auto;">{{message}}</p> <!--If login is attempted and fails, displays error message from flask-->
+        {% endif %}
         <div class="button centre" style="margin-top: 15px;"><a href="{{  url_for('home')  }}" style="text-decoration: none;">Back</a></div>
     </div>
 </body>

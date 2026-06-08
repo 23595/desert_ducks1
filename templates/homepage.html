@@ -87,6 +87,12 @@
     </style>
 </head>
 <body>
+    {% if error_message %}
+    <div class="error_message" id="error_message">
+        {{error_message }}
+        <img src="/static/images/x_button.png" alt="close_notif" onclick="hideBox()">
+    </div>
+    {% endif %}
     <img src="/static/images/bird.png" alt="flying bird" class="bird">
     <img src="/static/images/cloud.png" alt="cloud" class="cloud cloud1">
     <img src="/static/images/cloud.png" alt="cloud" class="cloud cloud2">
@@ -98,5 +104,11 @@
     <div class="button centre w3_fascinateInline" style="margin-top: 20px;"><a href="{{  url_for('setting_select')  }}" style="text-decoration: none;">Begin</a></div> <!--Directs to setting select page-->
     <div class="centre" style="margin-top: 10px;"><a href="{{ url_for('admin_login') }}">Admin Login</a></div> <!--Link to admin login-->
     <div class="desert_bottom"></div>
+    <script>
+        function hideBox() {
+        errorMessageBox = document.getElementById('error_message');
+        errorMessageBox.style.display = "none";
+    }
+    </script>
 </body>
 </html>

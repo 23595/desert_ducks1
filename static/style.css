@@ -239,3 +239,20 @@ input[type="submit"]:hover{
   box-shadow: none;
   transform: none;
 }
+.error_message{
+  width: 90vh;
+  background-color: #AC6060;
+  color: white;
+  text-align: center;
+  margin: auto;
+  margin-top: 10px;
+  height: 30px;
+  border-radius: 5px;
+  padding-top: 3px;
+}
+.error_message img{
+  float: right;
+  width: 20px;
+  margin-right: 4px;
+  margin-top: 3px;
+}
