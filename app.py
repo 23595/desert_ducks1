@@ -110,9 +110,11 @@ def home():
     # Home page
     return render_template("homepage.html")
 
+
 @app.route('/admin_login')
 def admin_login():
     return render_template("login.html")
+
 
 @app.route('/setting_list')
 def setting_list():
@@ -128,7 +130,8 @@ def setting_list():
         result = query_db(sql)  # Gets a list of all settings with ids
         return render_template("iframe.html", result=result, random_setting=random_setting)  # Sends the list of settings and id for the random one
     except Exception:
-        return render_template("homepage.html", error_message = 'An error was encountered. Please try again.')
+        return render_template("homepage.html", error_message='An error was encountered. Please try again.')
+
 
 @app.route('/setting_select')
 def setting_select():
@@ -144,7 +147,7 @@ def setting_select():
         result = query_db(sql)  # Gets a list of all settings with ids
         return render_template("setting_select.html", result=result, random_setting=random_setting)  # Sends the list of settings and id for the random one
     except Exception:
-        return render_template("homepage.html", error_message = 'An error was encountered. Please try again.')
+        return render_template("homepage.html", error_message='An error was encountered. Please try again.')
 
 
 @app.route('/setting/<int:id>')
@@ -165,7 +168,7 @@ def setting(id):
         result = query_db(sql, (id,), True)
         return render_template("setting_desc.html", result=result, id=id, first=0)
     except Exception:
-        return render_template("homepage.html", error_message = 'An error was encountered. Please try again.')
+        return render_template("homepage.html", error_message='An error was encountered. Please try again.')
 
 
 @app.route('/questions/<int:id>/<int:on_question>', methods=['GET', 'POST'])
@@ -216,7 +219,8 @@ def questions(id, on_question):  # id is the id of the setting. on_question is t
             message = score_message(total)
             return render_template("scoring.html", answers_list=answers_list, total=total, setting_name=setting_name[0][0], message=message)
     except Exception:
-        return render_template("homepage.html", error_message = 'An error was encountered. Please try again.')
+        return render_template("homepage.html", error_message='An error was encountered. Please try again.')
+
 
 @app.route('/create_setting', methods=['GET', 'POST'])
 def create_setting():
@@ -243,7 +247,8 @@ def create_setting():
         questions, settings = get_settings_questions()
         return render_template("insert_new.html", error_message=error_message, questions=questions, settings=settings)
     except Exception:
-        return render_template("homepage.html", error_message = 'An error was encountered. Please try again.')
+        return render_template("homepage.html", error_message='An error was encountered. Please try again.')
+
 
 @app.route('/create_question', methods=['GET', 'POST'])
 def create_question():
@@ -270,8 +275,8 @@ def create_question():
         questions, settings = get_settings_questions()
         return render_template("insert_new.html", error_message=error_message, questions=questions, settings=settings)
     except Exception:
-        return render_template("homepage.html", error_message = 'An error was encountered. Please try again.')
-                
+        return render_template("homepage.html", error_message='An error was encountered. Please try again.')
+
 
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
@@ -309,7 +314,7 @@ def new_user():
                 error_message = "New admin '" + username + "' created successfully"
         return render_template("admin.html", setting_names=data_dict.keys(), setting_data=json.dumps(data_dict), everything=json.dumps(everything_dict), error_message=error_message)
     except Exception:
-        return render_template("homepage.html", error_message = 'An error was encountered. Please try again.')
+        return render_template("homepage.html", error_message='An error was encountered. Please try again.')
 
 
 @app.route('/remove_user', methods=['GET', 'POST'])
@@ -340,7 +345,6 @@ def remove_user():
         return render_template("admin.html", setting_names=data_dict.keys(), setting_data=json.dumps(data_dict), everything=json.dumps(everything_dict), error_message=error_message)
     except Exception:
         return render_template("homepage.html", error_message='An error was encountered. Please try again.')
-
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -390,7 +394,7 @@ def login():
         else:
             return render_template("login.html")
     except Exception:
-        return render_template("homepage.html", error_message = 'An error was encountered. Please try again.')
+        return render_template("homepage.html", error_message='An error was encountered. Please try again.')
 
 
 if __name__ == "__main__":
