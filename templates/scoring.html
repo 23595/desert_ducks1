@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block left %}
 <div class="setting_box">
-    <h3 style="margin: 0px;"><strong>{{setting_name}}</strong></h3>
+    <h3 style="margin: 0px;"><strong>{{setting_name}}</strong></h3> <!--The name of the setting-->
 </div>
 <div class="question_box">
     <h3>Your total score:</h3>
-    <h1 style="text-align: center;"><strong>{{ total }}</strong></h1>
-    <h3>{{message}}</h3>
+    <h1 style="text-align: center;"><strong>{{ total }}</strong></h1> <!--The total point value-->
+    <h3>{{message}}</h3> <!--A message saying how well the player did-->
 </div>
 <div class="button centre" style="margin-top: 15px;"><a href="{{  url_for('home')  }}" style="text-decoration: none;">Play Again</a></div>
 {% endblock %}

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unkempt:wght@400;700&display=swap" rel="stylesheet">
     <title>Desert Ducks</title>
 
 </head>
@@ -13,7 +13,7 @@
     <!--Left side of the page-->
     <div class="left-column">
         <div style="width: 50%; margin: 5%;"> <!--Logo in the top left throughout all pages-->
-            <img src="/static/images/desert_ducks.png" alt="desert_ducks" style="width: inherit;">
+            <img src="/static/images/desert_ducks.png" alt="Desert ducks logo" style="width: inherit;">
         </div>
             {% block left %}{% endblock %}
     </div>

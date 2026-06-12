@@ -2,12 +2,23 @@ html, body{
   height: 100%;
   margin: 0;
 }
+body, html, h3 {
+  font-family: "Unkempt", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
 html{
   background-color: #C5D7D8;
 }
-
-.w3_newsreader{
-    font-family: Newsreader;
+body{
+  font-family: "Unkempt", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.unkempt-bold {
+  font-family: "Unkempt", cursive;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .big_logo{

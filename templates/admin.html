@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Newsreader">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unkempt:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>Admin Controls</title>
     <style>
@@ -83,7 +83,7 @@
     {% if error_message %}
     <div class="error_message" id="error_message">
         {{error_message }}
-        <img src="/static/images/x_button.png" alt="close_notif" onclick="hideBox()">
+        <img src="/static/images/x_button.png" alt="close error message" onclick="hideBox()">
     </div>
     {% endif %}
     <div class="grid">
@@ -137,7 +137,7 @@
     </div>
     <div> 
         <div class="button centre" style="margin-top: 10vh; background-color: #aac48d;">
-            <a href="{{  url_for('home')  }}" style="text-decoration: none;">Return to Home</a>
+            <a href="{{  url_for('home')  }}" style="text-decoration: none;">Return to Home</a> <!--Button to go back to homepage-->
         </div>
     </div>
 <script>
@@ -163,7 +163,7 @@
         });
     }
 
-    function refreshAnswers() {
+    function refreshAnswers() { //Runs when a setting is selected, getting the questions corresponding to that setting.
         const selectedSetting = document.getElementById('setting').value;
         const selectedQuestion = document.getElementById('question').value;
         const answerDisplay = document.getElementById('answers');
