@@ -26,10 +26,10 @@
 {% block right %}
 
 <div class="scorechart">
-    <div style="background-color: #CBEDAB;">Question</div>
-    <div style="background-color: #CBEDAB;">Points</div>
+    <div style="background-color: #CBEDAB; font-size: larger;">Question</div>
+    <div style="background-color: #CBEDAB; font-size: larger;">Points</div>
     {% for value in answers_list %}
-    <div style="font-size: small;">{{value}}</div>
+    <div>{{value}}</div>
     {% endfor %}
 </div>
 {% endblock %}

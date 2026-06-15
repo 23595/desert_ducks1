@@ -80,15 +80,15 @@ def get_authority(username):
 
 def score_message(score):
     if score <= 0:
-        return ('Your bird has gone extinct :(')
+        return ('Your bird has gone extinct (╬ ಠ益ಠ)')
     elif score <= 20:
-        return ('Your bird is struggling to survive')
+        return ('Your bird is struggling to survive ¯\(°_o)/¯')
     elif score <= 40:
-        return ('Your bird is doing ok.')
+        return ('Your bird is doing ok. (°レ°)')
     elif score <= 65:
-        return ('Your bird is doing quite well')
+        return ('Your bird is doing quite well! (✿◠‿◠)')
     else:
-        return ('Your bird is thriving in this ecosystem!')
+        return ('Your bird is thriving in this ecosystem! ₍₍⚞(˶>ᗜ<˶)⚟⁾⁾')
 
 
 @app.teardown_appcontext

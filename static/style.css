@@ -15,6 +15,10 @@ body{
   font-weight: 400;
   font-style: normal;
 }
+a{
+  color: black;
+  text-decoration: none;
+}
 .unkempt-bold {
   font-family: "Unkempt", cursive;
   font-weight: 700;
@@ -104,17 +108,18 @@ div.two_column_grid div:hover {
   float: right;
 }
 .scorechart{
-  width: 60%;
+  width: 80%;
   margin: auto;
   margin-top: 150px;
   display: grid;
   grid-template-columns: 4fr 1fr;
   grid-template-rows: 50px;
+  box-shadow: 5px 5px 10px grey;
 }
 .scorechart div{
   border: 2px solid black;
   border-bottom: 2px solid black;
-  font-size: 30px;
+  font-size: 1.5rem;
   text-align: center;
   box-sizing: border-box;
 }
@@ -224,8 +229,10 @@ input[type="radio"]:checked::before {
   transform: scale(1);
 }
 .radio-label{
-  font-family: system-ui, sans-serif;
-  font-size: 1rem;
+  font-family: "Unkempt", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.25rem;
   font-weight: bold;
   line-height: 1.1;
   display: grid;
